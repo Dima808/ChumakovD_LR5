@@ -90,7 +90,7 @@ python scripts/verify_config.py
 
 ## Історія Git
 
-Базовий згенерований контролер закомічено в `main`, доробки — в окремій гілці `codex/chumakov-lr5`.
+У локальній історії базовий згенерований контролер закомічено в `main`, доробки — в окремій гілці `codex/chumakov-lr5`.
 В архіві немає папок `.git`, `bin`, `obj`, `.vs`. Історію передано файлом `ChumakovD_LR5.bundle`.
 Щоб відновити її поруч із розпакованим проєктом:
 
@@ -98,8 +98,10 @@ python scripts/verify_config.py
 git clone -b codex/chumakov-lr5 ChumakovD_LR5.bundle ChumakovD_LR5-history
 ```
 
-GitHub-публікацію слід виконати у своєму репозиторії, після чого передати викладачу посилання на гілку.
-Локальна історія в bundle не створює віддалений GitHub-репозиторій і не надає до нього доступ.
+Публічний репозиторій: [Dima808/ChumakovD_LR5](https://github.com/Dima808/ChumakovD_LR5).
+Гілка для перевірки: [codex/chumakov-lr5](https://github.com/Dima808/ChumakovD_LR5/tree/codex/chumakov-lr5).
+На GitHub код і матеріали опубліковано окремими комітами у цій гілці; у віддаленій `main` залишається початковий README.
+Локальну історію генерації та доробок збережено в bundle.
 
 ## Джерело
 
