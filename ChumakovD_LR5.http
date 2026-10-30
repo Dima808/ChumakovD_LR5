@@ -1,0 +1,64 @@
+@host = http://localhost:5085
+
+### Завдання 1 і 2 — створення запису
+POST {{host}}/api/TodoItems
+Content-Type: application/json
+
+{
+  "name": "Підготувати звіт з ASP.NET Core",
+  "isComplete": false,
+  "dueDate": "2026-11-05",
+  "priority": 3
+}
+
+### Завдання 1 і 2 — читання колекції
+GET {{host}}/api/TodoItems
+
+### Завдання 1 і 2 — читання за Id
+GET {{host}}/api/TodoItems/1
+
+### Завдання 4 — пошук за двома Id
+GET {{host}}/api/TodoItems/by-ids?ids=1&ids=2
+
+### Завдання 5 — масове створення
+POST {{host}}/api/TodoItems/batch
+Content-Type: application/json
+
+[
+  {
+    "name": "Підготувати звіт з ASP.NET Core",
+    "isComplete": false,
+    "dueDate": "2026-11-05",
+    "priority": 3
+  },
+  {
+    "name": "Перевірити пошук за Id",
+    "isComplete": false,
+    "dueDate": "2026-11-06",
+    "priority": 2
+  },
+  {
+    "name": "Здати лабораторну роботу 5",
+    "isComplete": false,
+    "dueDate": "2026-11-07",
+    "priority": 5
+  }
+]
+
+### Завдання 2 — оновлення нових полів
+PUT {{host}}/api/TodoItems/1
+Content-Type: application/json
+
+{"id":1,"name":"Звіт перевірено","isComplete":true,"dueDate":"2026-11-08","priority":4}
+
+### Завдання 1 — видалення
+DELETE {{host}}/api/TodoItems/1
+
+### Завдання 4 — помилковий пошук за одним Id
+GET {{host}}/api/TodoItems/by-ids?ids=1
+
+### Завдання 5 — порожній масив
+POST {{host}}/api/TodoItems/batch
+Content-Type: application/json
+
+[]
