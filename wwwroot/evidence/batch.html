@@ -1,0 +1,15 @@
+<!doctype html><html lang="uk"><meta charset="utf-8"><title>POST масове створення записів</title><style>body{margin:20px;font:18px system-ui;color:#142438;background:#f3f6fa}main{max-width:1000px}h1{font-size:24px;margin:0 0 8px}p{margin:6px 0 14px}pre{font:18px/1.45 Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;background:white;border:1px solid #bdcbd9;padding:16px;margin-top:12px}aside{font:15px/1.5 monospace;color:#314a60}a{color:#185d99}pre{font-size:20px}</style><main><h1>POST масове створення записів</h1><p>Реальний код методу PostTodoItems</p><aside>Чумаков Дмитро · група 491 · Linux · $ whoami → meth</aside><pre>Controllers/TodoItemsController.cs
+
+66      // Завдання 5. Один SaveChangesAsync для масиву; відповідь містить усі створені Id.
+67      [HttpPost(&quot;batch&quot;)]
+68      public async Task&lt;ActionResult&lt;IEnumerable&lt;TodoItemDto&gt;&gt;&gt; PostTodoItems(TodoItemDto[] items)
+69      {
+70          if (items.Length == 0 || items.Length &gt; 200)
+71              return BadRequest(new { error = &quot;Масив має містити від 1 до 200 елементів.&quot; });
+72          if (items.Any(item =&gt; item is null || item.Id != 0))
+73              return BadRequest(new { error = &quot;Кожен елемент має бути об&#x27;єктом без заданого Id.&quot; });
+74          var created = items.Select(FromDto).ToArray();
+75          context.TodoItems.AddRange(created);
+76          await context.SaveChangesAsync();
+77          return CreatedAtAction(nameof(GetTodoItems), created.Select(ToDto).ToArray());
+78      }</pre><a href="/">Назад до HTTP-клієнта</a></main></html>

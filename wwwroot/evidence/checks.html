@@ -1,0 +1,30 @@
+<!doctype html><html lang="uk"><meta charset="utf-8"><title>Результати інтеграційних перевірок</title><style>body{margin:20px;font:18px system-ui;color:#142438;background:#f3f6fa}main{max-width:1000px}h1{font-size:24px;margin:0 0 8px}p{margin:6px 0 14px}pre{font:18px/1.45 Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;background:white;border:1px solid #bdcbd9;padding:16px;margin-top:12px}aside{font:15px/1.5 monospace;color:#314a60}a{color:#185d99}pre{font-size:17px}</style><main><h1>Результати інтеграційних перевірок</h1><p>Вивід виконаного Python-скрипта verify_api.py</p><aside>Чумаков Дмитро · група 491 · Linux · $ whoami → meth</aside><pre>PASS POST 201, серверний Id, Location, DueDate і Priority
+PASS DTO не повертає Secret
+PASS GET одного запису 200
+PASS GET відсутнього запису 404
+PASS POST batch 201 і три повні об’єкти з унікальними Id
+PASS Пошук кількох Id повертає лише знайдені записи
+PASS Пошук відхиляє некоректні Id ids=1
+PASS Пошук відхиляє некоректні Id ids=1&amp;ids=1
+PASS Пошук відхиляє некоректні Id ids=-1&amp;ids=2
+PASS Пошук відхиляє некоректні Id 
+PASS PUT повертає 204
+PASS PUT зберіг DueDate і Priority
+PASS PUT перевіряє збіг Id
+PASS POST відхиляє неправильний пріоритет
+PASS POST відхиляє порожня назва
+PASS POST відхиляє відсутня дата
+PASS POST відхиляє неправильна дата
+PASS POST відхиляє клієнтський Id
+PASS Batch відхиляє порожній масив без часткового запису
+PASS Batch відхиляє null замість масиву без часткового запису
+PASS Batch відхиляє null елемент без часткового запису
+PASS Batch відхиляє клієнтський Id без часткового запису
+PASS Batch відхиляє невалідний елемент без часткового запису
+PASS Batch відхиляє понад 200 елементів без часткового запису
+PASS Імпорт 120 логічних JSON-записів
+PASS DELETE повертає 204
+PASS Після DELETE запис відсутній
+PASS Повторний DELETE повертає 404
+RESULT 28 passed, 0 failed
+</pre><a href="/">Назад до HTTP-клієнта</a></main></html>

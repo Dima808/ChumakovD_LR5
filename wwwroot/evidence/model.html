@@ -1,0 +1,14 @@
+<!doctype html><html lang="uk"><meta charset="utf-8"><title>Модель TodoItem та нові поля</title><style>body{margin:20px;font:18px system-ui;color:#142438;background:#f3f6fa}main{max-width:1000px}h1{font-size:24px;margin:0 0 8px}p{margin:6px 0 14px}pre{font:18px/1.45 Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;background:white;border:1px solid #bdcbd9;padding:16px;margin-top:12px}aside{font:15px/1.5 monospace;color:#314a60}a{color:#185d99}pre{font-size:21px}</style><main><h1>Модель TodoItem та нові поля</h1><p>Вихідний код з файлу проєкту</p><aside>Чумаков Дмитро · група 491 · Linux · $ whoami → meth</aside><pre>Models/TodoItem.cs
+
+ 1  namespace ChumakovD_LR5.Models;
+ 2  
+ 3  public class TodoItem
+ 4  {
+ 5      public long Id { get; set; }
+ 6      public string? Name { get; set; }
+ 7      public bool IsComplete { get; set; }
+ 8      // Завдання 2. Дата виконання та пріоритет зберігаються в базі.
+ 9      public DateOnly DueDate { get; set; }
+10      public int Priority { get; set; }
+11      public string? Secret { get; set; }
+12  }</pre><a href="/">Назад до HTTP-клієнта</a></main></html>

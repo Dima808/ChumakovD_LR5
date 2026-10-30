@@ -1,0 +1,19 @@
+<!doctype html><html lang="uk"><meta charset="utf-8"><title>GET пошук за кількома Id</title><style>body{margin:20px;font:18px system-ui;color:#142438;background:#f3f6fa}main{max-width:1000px}h1{font-size:24px;margin:0 0 8px}p{margin:6px 0 14px}pre{font:18px/1.45 Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;background:white;border:1px solid #bdcbd9;padding:16px;margin-top:12px}aside{font:15px/1.5 monospace;color:#314a60}a{color:#185d99}pre{font-size:20px}</style><main><h1>GET пошук за кількома Id</h1><p>Реальний код методу GetTodoItems з параметром ids</p><aside>Чумаков Дмитро · група 491 · Linux · $ whoami → meth</aside><pre>Controllers/TodoItemsController.cs
+
+13      [HttpGet]
+14      public async Task&lt;ActionResult&lt;IEnumerable&lt;TodoItemDto&gt;&gt;&gt; GetTodoItems()
+15      {
+16          return await context.TodoItems.OrderBy(x =&gt; x.Id).Select(x =&gt; ToDto(x)).ToListAsync();
+17      }
+18  
+19      // Завдання 4. Пошук за двома або більше різними Id: ?ids=1&amp;ids=3.
+20      [HttpGet(&quot;by-ids&quot;)]
+21      [ActionName(&quot;GetTodoItemsByIds&quot;)]
+22      public async Task&lt;ActionResult&lt;IEnumerable&lt;TodoItemDto&gt;&gt;&gt; GetTodoItems([FromQuery] long[] ids)
+23      {
+24          var requested = ids.Distinct().ToArray();
+25          if (requested.Length &lt; 2 || requested.Any(id =&gt; id &lt;= 0))
+26              return BadRequest(new { error = &quot;Передайте щонайменше два різні додатні Id.&quot; });
+27  
+28          return await context.TodoItems.Where(x =&gt; requested.Contains(x.Id))
+29              .OrderBy(x =&gt; x.Id).Select(x =&gt; ToDto(x)).ToListAsync();</pre><a href="/">Назад до HTTP-клієнта</a></main></html>

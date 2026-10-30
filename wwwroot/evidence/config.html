@@ -1,0 +1,27 @@
+<!doctype html><html lang="uk"><meta charset="utf-8"><title>Валідація назви бази даних</title><style>body{margin:20px;font:18px system-ui;color:#142438;background:#f3f6fa}main{max-width:1000px}h1{font-size:24px;margin:0 0 8px}p{margin:6px 0 14px}pre{font:18px/1.45 Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;background:white;border:1px solid #bdcbd9;padding:16px;margin-top:12px}aside{font:15px/1.5 monospace;color:#314a60}a{color:#185d99}pre{font-size:18px}</style><main><h1>Валідація назви бази даних</h1><p>DataAnnotations та перевірка конфігурації під час запуску</p><aside>Чумаков Дмитро · група 491 · Linux · $ whoami → meth</aside><pre>Configuration/DatabaseOptions.cs
+
+ 1  using System.ComponentModel.DataAnnotations;
+ 2  
+ 3  namespace ChumakovD_LR5.Configuration;
+ 4  
+ 5  // Завдання 3. Ім&#x27;я бази даних у конфігурації з DataAnnotations.
+ 6  public sealed class DatabaseOptions
+ 7  {
+ 8      public const string SectionName = &quot;Database&quot;;
+ 9  
+10      [Required(ErrorMessage = &quot;Database:Name не може бути null, порожнім або складатися з пробілів.&quot;)]
+11      [MinLength(4, ErrorMessage = &quot;Database:Name має містити щонайменше 4 символи.&quot;)]
+12      public string Name { get; set; } = null!;
+13  }
+
+Program.cs
+
+13  builder.Services.AddOptions&lt;DatabaseOptions&gt;()
+14      .Bind(builder.Configuration.GetSection(DatabaseOptions.SectionName))
+15      .ValidateDataAnnotations()
+16      .ValidateOnStart();
+17  builder.Services.AddDbContext&lt;TodoContext&gt;((services, options) =&gt;
+18      options.UseInMemoryDatabase(services.GetRequiredService&lt;IOptions&lt;DatabaseOptions&gt;&gt;().Value.Name));
+19  
+20  var app = builder.Build();
+21  if (app.Environment.IsDevelopment())</pre><a href="/">Назад до HTTP-клієнта</a></main></html>

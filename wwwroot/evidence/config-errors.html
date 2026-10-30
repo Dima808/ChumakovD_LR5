@@ -1,0 +1,10 @@
+<!doctype html><html lang="uk"><meta charset="utf-8"><title>Перевірка неправильної конфігурації</title><style>body{margin:20px;font:18px system-ui;color:#142438;background:#f3f6fa}main{max-width:1000px}h1{font-size:24px;margin:0 0 8px}p{margin:6px 0 14px}pre{font:18px/1.45 Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;background:white;border:1px solid #bdcbd9;padding:16px;margin-top:12px}aside{font:15px/1.5 monospace;color:#314a60}a{color:#185d99}pre{font-size:18px}</style><main><h1>Перевірка неправильної конфігурації</h1><p>Фактичні результати чотирьох окремих запусків процесу ASP.NET Core</p><aside>Чумаков Дмитро · група 491 · Linux · $ whoami → meth</aside><pre>PASS Database:Name=null -&gt; старт відхилено
+Microsoft.Extensions.Options.OptionsValidationException: DataAnnotation validation failed for &#x27;DatabaseOptions&#x27; members: &#x27;Name&#x27; with the error: &#x27;Database:Name не може бути null, порожнім або складатися з пробілів.&#x27;.
+PASS Database:Name=&quot;&quot; -&gt; старт відхилено
+Microsoft.Extensions.Options.OptionsValidationException: DataAnnotation validation failed for &#x27;DatabaseOptions&#x27; members: &#x27;Name&#x27; with the error: &#x27;Database:Name не може бути null, порожнім або складатися з пробілів.&#x27;.
+PASS Database:Name=&quot;abc&quot; -&gt; старт відхилено
+Microsoft.Extensions.Options.OptionsValidationException: DataAnnotation validation failed for &#x27;DatabaseOptions&#x27; members: &#x27;Name&#x27; with the error: &#x27;Database:Name має містити щонайменше 4 символи.&#x27;.
+PASS Database:Name=&quot;    &quot; -&gt; старт відхилено
+Microsoft.Extensions.Options.OptionsValidationException: DataAnnotation validation failed for &#x27;DatabaseOptions&#x27; members: &#x27;Name&#x27; with the error: &#x27;Database:Name не може бути null, порожнім або складатися з пробілів.&#x27;.
+RESULT 4 passed, 0 failed
+</pre><a href="/">Назад до HTTP-клієнта</a></main></html>

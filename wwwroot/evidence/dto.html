@@ -1,0 +1,35 @@
+<!doctype html><html lang="uk"><meta charset="utf-8"><title>DTO та захист службового поля Secret</title><style>body{margin:20px;font:18px system-ui;color:#142438;background:#f3f6fa}main{max-width:1000px}h1{font-size:24px;margin:0 0 8px}p{margin:6px 0 14px}pre{font:18px/1.45 Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;background:white;border:1px solid #bdcbd9;padding:16px;margin-top:12px}aside{font:15px/1.5 monospace;color:#314a60}a{color:#185d99}pre{font-size:18px}</style><main><h1>DTO та захист службового поля Secret</h1><p>Відкриті поля відповіді й мапінг сутності</p><aside>Чумаков Дмитро · група 491 · Linux · $ whoami → meth</aside><pre>Models/TodoItemDto.cs
+
+ 1  using System.ComponentModel.DataAnnotations;
+ 2  
+ 3  namespace ChumakovD_LR5.Models;
+ 4  
+ 5  // Завдання 1 і 2. DTO захищає Secret і передає нові поля у всіх операціях.
+ 6  public sealed class TodoItemDto : IValidatableObject
+ 7  {
+ 8      public long Id { get; set; }
+ 9      [Required(ErrorMessage = &quot;Назва завдання обов&#x27;язкова.&quot;)]
+10      [StringLength(120, ErrorMessage = &quot;Назва має містити не більше 120 символів.&quot;)]
+11      public string Name { get; set; } = string.Empty;
+12      public bool IsComplete { get; set; }
+13      public DateOnly DueDate { get; set; }
+14      [Range(1, 5, ErrorMessage = &quot;Пріоритет має бути від 1 до 5.&quot;)]
+15      public int Priority { get; set; }
+16  
+17      public IEnumerable&lt;ValidationResult&gt; Validate(ValidationContext validationContext)
+18      {
+19          if (DueDate == default)
+20              yield return new ValidationResult(&quot;Укажіть дату виконання.&quot;, [nameof(DueDate)]);
+
+Controllers/TodoItemsController.cs
+
+91      private static TodoItemDto ToDto(TodoItem item) =&gt; new()
+92      {
+93          Id = item.Id, Name = item.Name ?? string.Empty, IsComplete = item.IsComplete,
+94          DueDate = item.DueDate, Priority = item.Priority
+95      };
+96  
+97      private static TodoItem FromDto(TodoItemDto dto) =&gt; new()
+98      {
+99          Name = dto.Name, IsComplete = dto.IsComplete, DueDate = dto.DueDate, Priority = dto.Priority
+100      };</pre><a href="/">Назад до HTTP-клієнта</a></main></html>
