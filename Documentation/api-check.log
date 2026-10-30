@@ -1,0 +1,29 @@
+PASS POST 201, серверний Id, Location, DueDate і Priority
+PASS DTO не повертає Secret
+PASS GET одного запису 200
+PASS GET відсутнього запису 404
+PASS POST batch 201 і три повні об’єкти з унікальними Id
+PASS Пошук кількох Id повертає лише знайдені записи
+PASS Пошук відхиляє некоректні Id ids=1
+PASS Пошук відхиляє некоректні Id ids=1&ids=1
+PASS Пошук відхиляє некоректні Id ids=-1&ids=2
+PASS Пошук відхиляє некоректні Id 
+PASS PUT повертає 204
+PASS PUT зберіг DueDate і Priority
+PASS PUT перевіряє збіг Id
+PASS POST відхиляє неправильний пріоритет
+PASS POST відхиляє порожня назва
+PASS POST відхиляє відсутня дата
+PASS POST відхиляє неправильна дата
+PASS POST відхиляє клієнтський Id
+PASS Batch відхиляє порожній масив без часткового запису
+PASS Batch відхиляє null замість масиву без часткового запису
+PASS Batch відхиляє null елемент без часткового запису
+PASS Batch відхиляє клієнтський Id без часткового запису
+PASS Batch відхиляє невалідний елемент без часткового запису
+PASS Batch відхиляє понад 200 елементів без часткового запису
+PASS Імпорт 120 логічних JSON-записів
+PASS DELETE повертає 204
+PASS Після DELETE запис відсутній
+PASS Повторний DELETE повертає 404
+RESULT 28 passed, 0 failed

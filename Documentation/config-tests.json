@@ -1,0 +1,30 @@
+[
+  {
+    "case": "null",
+    "value": null,
+    "exitCode": -6,
+    "error": "Microsoft.Extensions.Options.OptionsValidationException: DataAnnotation validation failed for 'DatabaseOptions' members: 'Name' with the error: 'Database:Name не може бути null, порожнім або складатися з пробілів.'.",
+    "passed": true
+  },
+  {
+    "case": "empty",
+    "value": "",
+    "exitCode": -6,
+    "error": "Microsoft.Extensions.Options.OptionsValidationException: DataAnnotation validation failed for 'DatabaseOptions' members: 'Name' with the error: 'Database:Name не може бути null, порожнім або складатися з пробілів.'.",
+    "passed": true
+  },
+  {
+    "case": "short",
+    "value": "abc",
+    "exitCode": -6,
+    "error": "Microsoft.Extensions.Options.OptionsValidationException: DataAnnotation validation failed for 'DatabaseOptions' members: 'Name' with the error: 'Database:Name має містити щонайменше 4 символи.'.",
+    "passed": true
+  },
+  {
+    "case": "spaces",
+    "value": "    ",
+    "exitCode": -6,
+    "error": "Microsoft.Extensions.Options.OptionsValidationException: DataAnnotation validation failed for 'DatabaseOptions' members: 'Name' with the error: 'Database:Name не може бути null, порожнім або складатися з пробілів.'.",
+    "passed": true
+  }
+]

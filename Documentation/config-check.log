@@ -1,0 +1,9 @@
+PASS Database:Name=null -> старт відхилено
+Microsoft.Extensions.Options.OptionsValidationException: DataAnnotation validation failed for 'DatabaseOptions' members: 'Name' with the error: 'Database:Name не може бути null, порожнім або складатися з пробілів.'.
+PASS Database:Name="" -> старт відхилено
+Microsoft.Extensions.Options.OptionsValidationException: DataAnnotation validation failed for 'DatabaseOptions' members: 'Name' with the error: 'Database:Name не може бути null, порожнім або складатися з пробілів.'.
+PASS Database:Name="abc" -> старт відхилено
+Microsoft.Extensions.Options.OptionsValidationException: DataAnnotation validation failed for 'DatabaseOptions' members: 'Name' with the error: 'Database:Name має містити щонайменше 4 символи.'.
+PASS Database:Name="    " -> старт відхилено
+Microsoft.Extensions.Options.OptionsValidationException: DataAnnotation validation failed for 'DatabaseOptions' members: 'Name' with the error: 'Database:Name не може бути null, порожнім або складатися з пробілів.'.
+RESULT 4 passed, 0 failed

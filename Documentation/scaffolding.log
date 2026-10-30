@@ -1,0 +1,11 @@
+Building project ...
+Finding the generator 'controller'...
+Running the generator 'controller'...
+
+Minimal hosting scenario!
+Attempting to figure out the EntityFramework metadata for the model and DbContext: 'TodoItem'
+
+Using database provider 'Microsoft.EntityFrameworkCore.InMemory'!
+
+Added Controller : '/Controllers/TodoItemsController.cs'.
+RunTime 00:00:05.01

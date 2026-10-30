@@ -1,0 +1,54 @@
+[
+  {
+    "file": "03-build.jpg",
+    "caption": "Рис. 1 - Генерування контролера та успішна збірка проєкту."
+  },
+  {
+    "file": "01-swagger.jpg",
+    "caption": "Рис. 2 - Сім операцій TodoItems у Swagger запущеного API."
+  },
+  {
+    "file": "02-model.jpg",
+    "caption": "Рис. 3 - Поля DueDate і Priority у моделі TodoItem."
+  },
+  {
+    "file": "10-post.jpg",
+    "caption": "Рис. 4 - POST повернув 201 Created та новий запис з Id 1."
+  },
+  {
+    "file": "13-put.jpg",
+    "caption": "Рис. 5 - Оновлення DueDate і Priority з відповіддю 204."
+  },
+  {
+    "file": "14-delete.jpg",
+    "caption": "Рис. 6 - Видалення запису з Id 1 та відповідь 204."
+  },
+  {
+    "file": "04-config.jpg",
+    "caption": "Рис. 7 - DataAnnotations і валідація параметрів під час запуску."
+  },
+  {
+    "file": "05-config-errors.jpg",
+    "caption": "Рис. 8 - Чотири відхилені конфігурації з поясненнями помилок."
+  },
+  {
+    "file": "06-search-code.jpg",
+    "caption": "Рис. 9 - Реалізація перевантаженого GET для кількох Id."
+  },
+  {
+    "file": "12-search-result.jpg",
+    "caption": "Рис. 10 - Пошук Id 1 та 3 повернув два відповідні об’єкти."
+  },
+  {
+    "file": "07-batch-code.jpg",
+    "caption": "Рис. 11 - Метод PostTodoItems зі збереженням масиву."
+  },
+  {
+    "file": "11-batch-result.jpg",
+    "caption": "Рис. 12 - Відповідь batch містить обидва створені записи з Id."
+  },
+  {
+    "file": "08-checks.jpg",
+    "caption": "Рис. 13 - Усі 28 інтеграційних HTTP-перевірок пройдено."
+  }
+]

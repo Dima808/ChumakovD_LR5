@@ -1,0 +1,5414 @@
+{
+  "passed": 28,
+  "checks": [
+    "POST 201, серверний Id, Location, DueDate і Priority",
+    "DTO не повертає Secret",
+    "GET одного запису 200",
+    "GET відсутнього запису 404",
+    "POST batch 201 і три повні об’єкти з унікальними Id",
+    "Пошук кількох Id повертає лише знайдені записи",
+    "Пошук відхиляє некоректні Id ids=1",
+    "Пошук відхиляє некоректні Id ids=1&ids=1",
+    "Пошук відхиляє некоректні Id ids=-1&ids=2",
+    "Пошук відхиляє некоректні Id ",
+    "PUT повертає 204",
+    "PUT зберіг DueDate і Priority",
+    "PUT перевіряє збіг Id",
+    "POST відхиляє неправильний пріоритет",
+    "POST відхиляє порожня назва",
+    "POST відхиляє відсутня дата",
+    "POST відхиляє неправильна дата",
+    "POST відхиляє клієнтський Id",
+    "Batch відхиляє порожній масив без часткового запису",
+    "Batch відхиляє null замість масиву без часткового запису",
+    "Batch відхиляє null елемент без часткового запису",
+    "Batch відхиляє клієнтський Id без часткового запису",
+    "Batch відхиляє невалідний елемент без часткового запису",
+    "Batch відхиляє понад 200 елементів без часткового запису",
+    "Імпорт 120 логічних JSON-записів",
+    "DELETE повертає 204",
+    "Після DELETE запис відсутній",
+    "Повторний DELETE повертає 404"
+  ],
+  "requests": [
+    {
+      "method": "POST",
+      "path": "/api/TodoItems",
+      "request": {
+        "name": "Підготувати звіт з ASP.NET Core",
+        "isComplete": false,
+        "dueDate": "2026-11-05",
+        "priority": 3,
+        "secret": "must-not-be-exposed"
+      },
+      "status": 201,
+      "response": {
+        "id": 1,
+        "name": "Підготувати звіт з ASP.NET Core",
+        "isComplete": false,
+        "dueDate": "2026-11-05",
+        "priority": 3
+      },
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:26 GMT",
+        "Server": "Kestrel",
+        "Location": "http://localhost:5085/api/TodoItems/1",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/TodoItems/1",
+      "request": null,
+      "status": 200,
+      "response": {
+        "id": 1,
+        "name": "Підготувати звіт з ASP.NET Core",
+        "isComplete": false,
+        "dueDate": "2026-11-05",
+        "priority": 3
+      },
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/TodoItems/9223372036854775807",
+      "request": null,
+      "status": 404,
+      "response": {
+        "type": "https://tools.ietf.org/html/rfc9110#section-15.5.5",
+        "title": "Not Found",
+        "status": 404,
+        "traceId": "00-699e2435a595e2ab314ca4608836e60b-5b6eb51cd4cb911a-00"
+      },
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/problem+json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/TodoItems/batch",
+      "request": [
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Перевірити пошук за Id",
+          "isComplete": false,
+          "dueDate": "2026-11-06",
+          "priority": 2
+        },
+        {
+          "name": "Здати лабораторну роботу 5",
+          "isComplete": false,
+          "dueDate": "2026-11-07",
+          "priority": 5
+        }
+      ],
+      "status": 201,
+      "response": [
+        {
+          "id": 2,
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "id": 3,
+          "name": "Перевірити пошук за Id",
+          "isComplete": false,
+          "dueDate": "2026-11-06",
+          "priority": 2
+        },
+        {
+          "id": 4,
+          "name": "Здати лабораторну роботу 5",
+          "isComplete": false,
+          "dueDate": "2026-11-07",
+          "priority": 5
+        }
+      ],
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Location": "http://localhost:5085/api/TodoItems",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/TodoItems/by-ids?ids=1&ids=2&ids=9223372036854775807",
+      "request": null,
+      "status": 200,
+      "response": [
+        {
+          "id": 1,
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "id": 2,
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        }
+      ],
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/TodoItems/by-ids?ids=1",
+      "request": null,
+      "status": 400,
+      "response": {
+        "error": "Передайте щонайменше два різні додатні Id."
+      },
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/TodoItems/by-ids?ids=1&ids=1",
+      "request": null,
+      "status": 400,
+      "response": {
+        "error": "Передайте щонайменше два різні додатні Id."
+      },
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/TodoItems/by-ids?ids=-1&ids=2",
+      "request": null,
+      "status": 400,
+      "response": {
+        "error": "Передайте щонайменше два різні додатні Id."
+      },
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/TodoItems/by-ids?",
+      "request": null,
+      "status": 400,
+      "response": {
+        "error": "Передайте щонайменше два різні додатні Id."
+      },
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/api/TodoItems/1",
+      "request": {
+        "id": 1,
+        "name": "Звіт перевірено",
+        "isComplete": true,
+        "dueDate": "2026-11-08",
+        "priority": 4
+      },
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/TodoItems/1",
+      "request": null,
+      "status": 200,
+      "response": {
+        "id": 1,
+        "name": "Звіт перевірено",
+        "isComplete": true,
+        "dueDate": "2026-11-08",
+        "priority": 4
+      },
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/api/TodoItems/1",
+      "request": {
+        "id": 10001,
+        "name": "Звіт перевірено",
+        "isComplete": true,
+        "dueDate": "2026-11-08",
+        "priority": 4
+      },
+      "status": 400,
+      "response": {
+        "error": "Id у маршруті та JSON мають збігатися."
+      },
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/TodoItems",
+      "request": {
+        "name": "Підготувати звіт з ASP.NET Core",
+        "isComplete": false,
+        "dueDate": "2026-11-05",
+        "priority": 0
+      },
+      "status": 400,
+      "response": {
+        "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+        "title": "One or more validation errors occurred.",
+        "status": 400,
+        "errors": {
+          "Priority": [
+            "Пріоритет має бути від 1 до 5."
+          ]
+        },
+        "traceId": "00-39dfaa8a0b20a767995ccef01c3ed28e-ed47706c587d7a78-00"
+      },
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/problem+json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/TodoItems",
+      "request": {
+        "name": "",
+        "isComplete": false,
+        "dueDate": "2026-11-05",
+        "priority": 3
+      },
+      "status": 400,
+      "response": {
+        "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+        "title": "One or more validation errors occurred.",
+        "status": 400,
+        "errors": {
+          "Name": [
+            "Назва завдання обов'язкова."
+          ]
+        },
+        "traceId": "00-62f9e9e56df3eb5726f74348543748f2-16b00c0d69c5e06a-00"
+      },
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/problem+json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/TodoItems",
+      "request": {
+        "name": "Підготувати звіт з ASP.NET Core",
+        "isComplete": false,
+        "priority": 3
+      },
+      "status": 400,
+      "response": {
+        "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+        "title": "One or more validation errors occurred.",
+        "status": 400,
+        "errors": {
+          "DueDate": [
+            "Укажіть дату виконання."
+          ]
+        },
+        "traceId": "00-31ae2330a4ad7e4cfe4711a72ac9ac1b-eecf48a7ce9141e1-00"
+      },
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/problem+json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/TodoItems",
+      "request": {
+        "name": "Підготувати звіт з ASP.NET Core",
+        "isComplete": false,
+        "dueDate": "bad",
+        "priority": 3
+      },
+      "status": 400,
+      "response": {
+        "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+        "title": "One or more validation errors occurred.",
+        "status": 400,
+        "errors": {
+          "dto": [
+            "The dto field is required."
+          ],
+          "$.dueDate": [
+            "The JSON value could not be converted to System.DateOnly. Path: $.dueDate | LineNumber: 0 | BytePositionInLine: 97."
+          ]
+        },
+        "traceId": "00-fd295555efb45a36ce819845199ff5d2-cffc5796b15130fa-00"
+      },
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/problem+json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/TodoItems",
+      "request": {
+        "name": "Підготувати звіт з ASP.NET Core",
+        "isComplete": false,
+        "dueDate": "2026-11-05",
+        "priority": 3,
+        "id": 9000
+      },
+      "status": 400,
+      "response": {
+        "error": "Не задавайте Id під час створення."
+      },
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/TodoItems",
+      "request": null,
+      "status": 200,
+      "response": [
+        {
+          "id": 1,
+          "name": "Звіт перевірено",
+          "isComplete": true,
+          "dueDate": "2026-11-08",
+          "priority": 4
+        },
+        {
+          "id": 2,
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "id": 3,
+          "name": "Перевірити пошук за Id",
+          "isComplete": false,
+          "dueDate": "2026-11-06",
+          "priority": 2
+        },
+        {
+          "id": 4,
+          "name": "Здати лабораторну роботу 5",
+          "isComplete": false,
+          "dueDate": "2026-11-07",
+          "priority": 5
+        }
+      ],
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/TodoItems/batch",
+      "request": [],
+      "status": 400,
+      "response": {
+        "error": "Масив має містити від 1 до 200 елементів."
+      },
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/TodoItems",
+      "request": null,
+      "status": 200,
+      "response": [
+        {
+          "id": 1,
+          "name": "Звіт перевірено",
+          "isComplete": true,
+          "dueDate": "2026-11-08",
+          "priority": 4
+        },
+        {
+          "id": 2,
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "id": 3,
+          "name": "Перевірити пошук за Id",
+          "isComplete": false,
+          "dueDate": "2026-11-06",
+          "priority": 2
+        },
+        {
+          "id": 4,
+          "name": "Здати лабораторну роботу 5",
+          "isComplete": false,
+          "dueDate": "2026-11-07",
+          "priority": 5
+        }
+      ],
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/TodoItems",
+      "request": null,
+      "status": 200,
+      "response": [
+        {
+          "id": 1,
+          "name": "Звіт перевірено",
+          "isComplete": true,
+          "dueDate": "2026-11-08",
+          "priority": 4
+        },
+        {
+          "id": 2,
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "id": 3,
+          "name": "Перевірити пошук за Id",
+          "isComplete": false,
+          "dueDate": "2026-11-06",
+          "priority": 2
+        },
+        {
+          "id": 4,
+          "name": "Здати лабораторну роботу 5",
+          "isComplete": false,
+          "dueDate": "2026-11-07",
+          "priority": 5
+        }
+      ],
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/TodoItems/batch",
+      "request": null,
+      "status": 400,
+      "response": {
+        "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+        "title": "One or more validation errors occurred.",
+        "status": 400,
+        "errors": {
+          "": [
+            "A non-empty request body is required."
+          ],
+          "items": [
+            "The items field is required."
+          ]
+        },
+        "traceId": "00-07d87287cf061f1bb48d82e018e7b1c0-dc5ca1c286e3d7d3-00"
+      },
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/problem+json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/TodoItems",
+      "request": null,
+      "status": 200,
+      "response": [
+        {
+          "id": 1,
+          "name": "Звіт перевірено",
+          "isComplete": true,
+          "dueDate": "2026-11-08",
+          "priority": 4
+        },
+        {
+          "id": 2,
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "id": 3,
+          "name": "Перевірити пошук за Id",
+          "isComplete": false,
+          "dueDate": "2026-11-06",
+          "priority": 2
+        },
+        {
+          "id": 4,
+          "name": "Здати лабораторну роботу 5",
+          "isComplete": false,
+          "dueDate": "2026-11-07",
+          "priority": 5
+        }
+      ],
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/TodoItems",
+      "request": null,
+      "status": 200,
+      "response": [
+        {
+          "id": 1,
+          "name": "Звіт перевірено",
+          "isComplete": true,
+          "dueDate": "2026-11-08",
+          "priority": 4
+        },
+        {
+          "id": 2,
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "id": 3,
+          "name": "Перевірити пошук за Id",
+          "isComplete": false,
+          "dueDate": "2026-11-06",
+          "priority": 2
+        },
+        {
+          "id": 4,
+          "name": "Здати лабораторну роботу 5",
+          "isComplete": false,
+          "dueDate": "2026-11-07",
+          "priority": 5
+        }
+      ],
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/TodoItems/batch",
+      "request": [
+        null
+      ],
+      "status": 400,
+      "response": {
+        "error": "Кожен елемент має бути об'єктом без заданого Id."
+      },
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/TodoItems",
+      "request": null,
+      "status": 200,
+      "response": [
+        {
+          "id": 1,
+          "name": "Звіт перевірено",
+          "isComplete": true,
+          "dueDate": "2026-11-08",
+          "priority": 4
+        },
+        {
+          "id": 2,
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "id": 3,
+          "name": "Перевірити пошук за Id",
+          "isComplete": false,
+          "dueDate": "2026-11-06",
+          "priority": 2
+        },
+        {
+          "id": 4,
+          "name": "Здати лабораторну роботу 5",
+          "isComplete": false,
+          "dueDate": "2026-11-07",
+          "priority": 5
+        }
+      ],
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/TodoItems",
+      "request": null,
+      "status": 200,
+      "response": [
+        {
+          "id": 1,
+          "name": "Звіт перевірено",
+          "isComplete": true,
+          "dueDate": "2026-11-08",
+          "priority": 4
+        },
+        {
+          "id": 2,
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "id": 3,
+          "name": "Перевірити пошук за Id",
+          "isComplete": false,
+          "dueDate": "2026-11-06",
+          "priority": 2
+        },
+        {
+          "id": 4,
+          "name": "Здати лабораторну роботу 5",
+          "isComplete": false,
+          "dueDate": "2026-11-07",
+          "priority": 5
+        }
+      ],
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/TodoItems/batch",
+      "request": [
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3,
+          "id": 9000
+        }
+      ],
+      "status": 400,
+      "response": {
+        "error": "Кожен елемент має бути об'єктом без заданого Id."
+      },
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/TodoItems",
+      "request": null,
+      "status": 200,
+      "response": [
+        {
+          "id": 1,
+          "name": "Звіт перевірено",
+          "isComplete": true,
+          "dueDate": "2026-11-08",
+          "priority": 4
+        },
+        {
+          "id": 2,
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "id": 3,
+          "name": "Перевірити пошук за Id",
+          "isComplete": false,
+          "dueDate": "2026-11-06",
+          "priority": 2
+        },
+        {
+          "id": 4,
+          "name": "Здати лабораторну роботу 5",
+          "isComplete": false,
+          "dueDate": "2026-11-07",
+          "priority": 5
+        }
+      ],
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/TodoItems",
+      "request": null,
+      "status": 200,
+      "response": [
+        {
+          "id": 1,
+          "name": "Звіт перевірено",
+          "isComplete": true,
+          "dueDate": "2026-11-08",
+          "priority": 4
+        },
+        {
+          "id": 2,
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "id": 3,
+          "name": "Перевірити пошук за Id",
+          "isComplete": false,
+          "dueDate": "2026-11-06",
+          "priority": 2
+        },
+        {
+          "id": 4,
+          "name": "Здати лабораторну роботу 5",
+          "isComplete": false,
+          "dueDate": "2026-11-07",
+          "priority": 5
+        }
+      ],
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/TodoItems/batch",
+      "request": [
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 0
+        }
+      ],
+      "status": 400,
+      "response": {
+        "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+        "title": "One or more validation errors occurred.",
+        "status": 400,
+        "errors": {
+          "[1].Priority": [
+            "Пріоритет має бути від 1 до 5."
+          ]
+        },
+        "traceId": "00-bbfda2f8bf4b39870988f63084db57e3-1fda920f223fee66-00"
+      },
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/problem+json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/TodoItems",
+      "request": null,
+      "status": 200,
+      "response": [
+        {
+          "id": 1,
+          "name": "Звіт перевірено",
+          "isComplete": true,
+          "dueDate": "2026-11-08",
+          "priority": 4
+        },
+        {
+          "id": 2,
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "id": 3,
+          "name": "Перевірити пошук за Id",
+          "isComplete": false,
+          "dueDate": "2026-11-06",
+          "priority": 2
+        },
+        {
+          "id": 4,
+          "name": "Здати лабораторну роботу 5",
+          "isComplete": false,
+          "dueDate": "2026-11-07",
+          "priority": 5
+        }
+      ],
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/TodoItems",
+      "request": null,
+      "status": 200,
+      "response": [
+        {
+          "id": 1,
+          "name": "Звіт перевірено",
+          "isComplete": true,
+          "dueDate": "2026-11-08",
+          "priority": 4
+        },
+        {
+          "id": 2,
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "id": 3,
+          "name": "Перевірити пошук за Id",
+          "isComplete": false,
+          "dueDate": "2026-11-06",
+          "priority": 2
+        },
+        {
+          "id": 4,
+          "name": "Здати лабораторну роботу 5",
+          "isComplete": false,
+          "dueDate": "2026-11-07",
+          "priority": 5
+        }
+      ],
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/TodoItems/batch",
+      "request": [
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        }
+      ],
+      "status": 400,
+      "response": {
+        "error": "Масив має містити від 1 до 200 елементів."
+      },
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/TodoItems",
+      "request": null,
+      "status": 200,
+      "response": [
+        {
+          "id": 1,
+          "name": "Звіт перевірено",
+          "isComplete": true,
+          "dueDate": "2026-11-08",
+          "priority": 4
+        },
+        {
+          "id": 2,
+          "name": "Підготувати звіт з ASP.NET Core",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "id": 3,
+          "name": "Перевірити пошук за Id",
+          "isComplete": false,
+          "dueDate": "2026-11-06",
+          "priority": 2
+        },
+        {
+          "id": 4,
+          "name": "Здати лабораторну роботу 5",
+          "isComplete": false,
+          "dueDate": "2026-11-07",
+          "priority": 5
+        }
+      ],
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/TodoItems/batch",
+      "request": [
+        {
+          "name": "Основи HTTP — прочитати документацію",
+          "isComplete": false,
+          "dueDate": "2026-11-01",
+          "priority": 1
+        },
+        {
+          "name": "Основи HTTP — створити приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-02",
+          "priority": 2
+        },
+        {
+          "name": "Основи HTTP — перевірити коректний запит",
+          "isComplete": false,
+          "dueDate": "2026-11-03",
+          "priority": 3
+        },
+        {
+          "name": "Основи HTTP — перевірити помилковий запит",
+          "isComplete": false,
+          "dueDate": "2026-11-04",
+          "priority": 4
+        },
+        {
+          "name": "Основи HTTP — додати json-приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 5
+        },
+        {
+          "name": "Основи HTTP — переглянути відповідь",
+          "isComplete": false,
+          "dueDate": "2026-11-06",
+          "priority": 1
+        },
+        {
+          "name": "Основи HTTP — додати коментарі",
+          "isComplete": false,
+          "dueDate": "2026-11-07",
+          "priority": 2
+        },
+        {
+          "name": "Основи HTTP — перевірити формат дати",
+          "isComplete": false,
+          "dueDate": "2026-11-08",
+          "priority": 3
+        },
+        {
+          "name": "Основи HTTP — підготувати скриншот",
+          "isComplete": false,
+          "dueDate": "2026-11-09",
+          "priority": 4
+        },
+        {
+          "name": "Основи HTTP — перевірити readme",
+          "isComplete": false,
+          "dueDate": "2026-11-10",
+          "priority": 5
+        },
+        {
+          "name": "Маршрутизація — прочитати документацію",
+          "isComplete": false,
+          "dueDate": "2026-11-11",
+          "priority": 1
+        },
+        {
+          "name": "Маршрутизація — створити приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-12",
+          "priority": 2
+        },
+        {
+          "name": "Маршрутизація — перевірити коректний запит",
+          "isComplete": false,
+          "dueDate": "2026-11-13",
+          "priority": 3
+        },
+        {
+          "name": "Маршрутизація — перевірити помилковий запит",
+          "isComplete": false,
+          "dueDate": "2026-11-14",
+          "priority": 4
+        },
+        {
+          "name": "Маршрутизація — додати json-приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-15",
+          "priority": 5
+        },
+        {
+          "name": "Маршрутизація — переглянути відповідь",
+          "isComplete": false,
+          "dueDate": "2026-11-16",
+          "priority": 1
+        },
+        {
+          "name": "Маршрутизація — додати коментарі",
+          "isComplete": false,
+          "dueDate": "2026-11-17",
+          "priority": 2
+        },
+        {
+          "name": "Маршрутизація — перевірити формат дати",
+          "isComplete": false,
+          "dueDate": "2026-11-18",
+          "priority": 3
+        },
+        {
+          "name": "Маршрутизація — підготувати скриншот",
+          "isComplete": false,
+          "dueDate": "2026-11-19",
+          "priority": 4
+        },
+        {
+          "name": "Маршрутизація — перевірити readme",
+          "isComplete": false,
+          "dueDate": "2026-11-20",
+          "priority": 5
+        },
+        {
+          "name": "Контролери ASP.NET Core — прочитати документацію",
+          "isComplete": false,
+          "dueDate": "2026-11-21",
+          "priority": 1
+        },
+        {
+          "name": "Контролери ASP.NET Core — створити приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-22",
+          "priority": 2
+        },
+        {
+          "name": "Контролери ASP.NET Core — перевірити коректний запит",
+          "isComplete": false,
+          "dueDate": "2026-11-23",
+          "priority": 3
+        },
+        {
+          "name": "Контролери ASP.NET Core — перевірити помилковий запит",
+          "isComplete": false,
+          "dueDate": "2026-11-24",
+          "priority": 4
+        },
+        {
+          "name": "Контролери ASP.NET Core — додати json-приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-25",
+          "priority": 5
+        },
+        {
+          "name": "Контролери ASP.NET Core — переглянути відповідь",
+          "isComplete": false,
+          "dueDate": "2026-11-26",
+          "priority": 1
+        },
+        {
+          "name": "Контролери ASP.NET Core — додати коментарі",
+          "isComplete": false,
+          "dueDate": "2026-11-27",
+          "priority": 2
+        },
+        {
+          "name": "Контролери ASP.NET Core — перевірити формат дати",
+          "isComplete": false,
+          "dueDate": "2026-11-28",
+          "priority": 3
+        },
+        {
+          "name": "Контролери ASP.NET Core — підготувати скриншот",
+          "isComplete": false,
+          "dueDate": "2026-11-01",
+          "priority": 4
+        },
+        {
+          "name": "Контролери ASP.NET Core — перевірити readme",
+          "isComplete": false,
+          "dueDate": "2026-11-02",
+          "priority": 5
+        },
+        {
+          "name": "Моделі даних — прочитати документацію",
+          "isComplete": false,
+          "dueDate": "2026-11-03",
+          "priority": 1
+        },
+        {
+          "name": "Моделі даних — створити приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-04",
+          "priority": 2
+        },
+        {
+          "name": "Моделі даних — перевірити коректний запит",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "name": "Моделі даних — перевірити помилковий запит",
+          "isComplete": false,
+          "dueDate": "2026-11-06",
+          "priority": 4
+        },
+        {
+          "name": "Моделі даних — додати json-приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-07",
+          "priority": 5
+        },
+        {
+          "name": "Моделі даних — переглянути відповідь",
+          "isComplete": false,
+          "dueDate": "2026-11-08",
+          "priority": 1
+        },
+        {
+          "name": "Моделі даних — додати коментарі",
+          "isComplete": false,
+          "dueDate": "2026-11-09",
+          "priority": 2
+        },
+        {
+          "name": "Моделі даних — перевірити формат дати",
+          "isComplete": false,
+          "dueDate": "2026-11-10",
+          "priority": 3
+        },
+        {
+          "name": "Моделі даних — підготувати скриншот",
+          "isComplete": false,
+          "dueDate": "2026-11-11",
+          "priority": 4
+        },
+        {
+          "name": "Моделі даних — перевірити readme",
+          "isComplete": false,
+          "dueDate": "2026-11-12",
+          "priority": 5
+        },
+        {
+          "name": "Entity Framework Core — прочитати документацію",
+          "isComplete": false,
+          "dueDate": "2026-11-13",
+          "priority": 1
+        },
+        {
+          "name": "Entity Framework Core — створити приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-14",
+          "priority": 2
+        },
+        {
+          "name": "Entity Framework Core — перевірити коректний запит",
+          "isComplete": false,
+          "dueDate": "2026-11-15",
+          "priority": 3
+        },
+        {
+          "name": "Entity Framework Core — перевірити помилковий запит",
+          "isComplete": false,
+          "dueDate": "2026-11-16",
+          "priority": 4
+        },
+        {
+          "name": "Entity Framework Core — додати json-приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-17",
+          "priority": 5
+        },
+        {
+          "name": "Entity Framework Core — переглянути відповідь",
+          "isComplete": false,
+          "dueDate": "2026-11-18",
+          "priority": 1
+        },
+        {
+          "name": "Entity Framework Core — додати коментарі",
+          "isComplete": false,
+          "dueDate": "2026-11-19",
+          "priority": 2
+        },
+        {
+          "name": "Entity Framework Core — перевірити формат дати",
+          "isComplete": false,
+          "dueDate": "2026-11-20",
+          "priority": 3
+        },
+        {
+          "name": "Entity Framework Core — підготувати скриншот",
+          "isComplete": false,
+          "dueDate": "2026-11-21",
+          "priority": 4
+        },
+        {
+          "name": "Entity Framework Core — перевірити readme",
+          "isComplete": false,
+          "dueDate": "2026-11-22",
+          "priority": 5
+        },
+        {
+          "name": "DTO і захист даних — прочитати документацію",
+          "isComplete": false,
+          "dueDate": "2026-11-23",
+          "priority": 1
+        },
+        {
+          "name": "DTO і захист даних — створити приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-24",
+          "priority": 2
+        },
+        {
+          "name": "DTO і захист даних — перевірити коректний запит",
+          "isComplete": false,
+          "dueDate": "2026-11-25",
+          "priority": 3
+        },
+        {
+          "name": "DTO і захист даних — перевірити помилковий запит",
+          "isComplete": false,
+          "dueDate": "2026-11-26",
+          "priority": 4
+        },
+        {
+          "name": "DTO і захист даних — додати json-приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-27",
+          "priority": 5
+        },
+        {
+          "name": "DTO і захист даних — переглянути відповідь",
+          "isComplete": false,
+          "dueDate": "2026-11-28",
+          "priority": 1
+        },
+        {
+          "name": "DTO і захист даних — додати коментарі",
+          "isComplete": false,
+          "dueDate": "2026-11-01",
+          "priority": 2
+        },
+        {
+          "name": "DTO і захист даних — перевірити формат дати",
+          "isComplete": false,
+          "dueDate": "2026-11-02",
+          "priority": 3
+        },
+        {
+          "name": "DTO і захист даних — підготувати скриншот",
+          "isComplete": false,
+          "dueDate": "2026-11-03",
+          "priority": 4
+        },
+        {
+          "name": "DTO і захист даних — перевірити readme",
+          "isComplete": false,
+          "dueDate": "2026-11-04",
+          "priority": 5
+        },
+        {
+          "name": "Валідація конфігурації — прочитати документацію",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 1
+        },
+        {
+          "name": "Валідація конфігурації — створити приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-06",
+          "priority": 2
+        },
+        {
+          "name": "Валідація конфігурації — перевірити коректний запит",
+          "isComplete": false,
+          "dueDate": "2026-11-07",
+          "priority": 3
+        },
+        {
+          "name": "Валідація конфігурації — перевірити помилковий запит",
+          "isComplete": false,
+          "dueDate": "2026-11-08",
+          "priority": 4
+        },
+        {
+          "name": "Валідація конфігурації — додати json-приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-09",
+          "priority": 5
+        },
+        {
+          "name": "Валідація конфігурації — переглянути відповідь",
+          "isComplete": false,
+          "dueDate": "2026-11-10",
+          "priority": 1
+        },
+        {
+          "name": "Валідація конфігурації — додати коментарі",
+          "isComplete": false,
+          "dueDate": "2026-11-11",
+          "priority": 2
+        },
+        {
+          "name": "Валідація конфігурації — перевірити формат дати",
+          "isComplete": false,
+          "dueDate": "2026-11-12",
+          "priority": 3
+        },
+        {
+          "name": "Валідація конфігурації — підготувати скриншот",
+          "isComplete": false,
+          "dueDate": "2026-11-13",
+          "priority": 4
+        },
+        {
+          "name": "Валідація конфігурації — перевірити readme",
+          "isComplete": false,
+          "dueDate": "2026-11-14",
+          "priority": 5
+        },
+        {
+          "name": "Swagger та OpenAPI — прочитати документацію",
+          "isComplete": false,
+          "dueDate": "2026-11-15",
+          "priority": 1
+        },
+        {
+          "name": "Swagger та OpenAPI — створити приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-16",
+          "priority": 2
+        },
+        {
+          "name": "Swagger та OpenAPI — перевірити коректний запит",
+          "isComplete": false,
+          "dueDate": "2026-11-17",
+          "priority": 3
+        },
+        {
+          "name": "Swagger та OpenAPI — перевірити помилковий запит",
+          "isComplete": false,
+          "dueDate": "2026-11-18",
+          "priority": 4
+        },
+        {
+          "name": "Swagger та OpenAPI — додати json-приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-19",
+          "priority": 5
+        },
+        {
+          "name": "Swagger та OpenAPI — переглянути відповідь",
+          "isComplete": false,
+          "dueDate": "2026-11-20",
+          "priority": 1
+        },
+        {
+          "name": "Swagger та OpenAPI — додати коментарі",
+          "isComplete": false,
+          "dueDate": "2026-11-21",
+          "priority": 2
+        },
+        {
+          "name": "Swagger та OpenAPI — перевірити формат дати",
+          "isComplete": false,
+          "dueDate": "2026-11-22",
+          "priority": 3
+        },
+        {
+          "name": "Swagger та OpenAPI — підготувати скриншот",
+          "isComplete": false,
+          "dueDate": "2026-11-23",
+          "priority": 4
+        },
+        {
+          "name": "Swagger та OpenAPI — перевірити readme",
+          "isComplete": false,
+          "dueDate": "2026-11-24",
+          "priority": 5
+        },
+        {
+          "name": "Пошук за кількома Id — прочитати документацію",
+          "isComplete": false,
+          "dueDate": "2026-11-25",
+          "priority": 1
+        },
+        {
+          "name": "Пошук за кількома Id — створити приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-26",
+          "priority": 2
+        },
+        {
+          "name": "Пошук за кількома Id — перевірити коректний запит",
+          "isComplete": false,
+          "dueDate": "2026-11-27",
+          "priority": 3
+        },
+        {
+          "name": "Пошук за кількома Id — перевірити помилковий запит",
+          "isComplete": false,
+          "dueDate": "2026-11-28",
+          "priority": 4
+        },
+        {
+          "name": "Пошук за кількома Id — додати json-приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-01",
+          "priority": 5
+        },
+        {
+          "name": "Пошук за кількома Id — переглянути відповідь",
+          "isComplete": false,
+          "dueDate": "2026-11-02",
+          "priority": 1
+        },
+        {
+          "name": "Пошук за кількома Id — додати коментарі",
+          "isComplete": false,
+          "dueDate": "2026-11-03",
+          "priority": 2
+        },
+        {
+          "name": "Пошук за кількома Id — перевірити формат дати",
+          "isComplete": false,
+          "dueDate": "2026-11-04",
+          "priority": 3
+        },
+        {
+          "name": "Пошук за кількома Id — підготувати скриншот",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 4
+        },
+        {
+          "name": "Пошук за кількома Id — перевірити readme",
+          "isComplete": false,
+          "dueDate": "2026-11-06",
+          "priority": 5
+        },
+        {
+          "name": "Масове створення — прочитати документацію",
+          "isComplete": false,
+          "dueDate": "2026-11-07",
+          "priority": 1
+        },
+        {
+          "name": "Масове створення — створити приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-08",
+          "priority": 2
+        },
+        {
+          "name": "Масове створення — перевірити коректний запит",
+          "isComplete": false,
+          "dueDate": "2026-11-09",
+          "priority": 3
+        },
+        {
+          "name": "Масове створення — перевірити помилковий запит",
+          "isComplete": false,
+          "dueDate": "2026-11-10",
+          "priority": 4
+        },
+        {
+          "name": "Масове створення — додати json-приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-11",
+          "priority": 5
+        },
+        {
+          "name": "Масове створення — переглянути відповідь",
+          "isComplete": false,
+          "dueDate": "2026-11-12",
+          "priority": 1
+        },
+        {
+          "name": "Масове створення — додати коментарі",
+          "isComplete": false,
+          "dueDate": "2026-11-13",
+          "priority": 2
+        },
+        {
+          "name": "Масове створення — перевірити формат дати",
+          "isComplete": false,
+          "dueDate": "2026-11-14",
+          "priority": 3
+        },
+        {
+          "name": "Масове створення — підготувати скриншот",
+          "isComplete": false,
+          "dueDate": "2026-11-15",
+          "priority": 4
+        },
+        {
+          "name": "Масове створення — перевірити readme",
+          "isComplete": false,
+          "dueDate": "2026-11-16",
+          "priority": 5
+        },
+        {
+          "name": "Обробка помилок — прочитати документацію",
+          "isComplete": false,
+          "dueDate": "2026-11-17",
+          "priority": 1
+        },
+        {
+          "name": "Обробка помилок — створити приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-18",
+          "priority": 2
+        },
+        {
+          "name": "Обробка помилок — перевірити коректний запит",
+          "isComplete": false,
+          "dueDate": "2026-11-19",
+          "priority": 3
+        },
+        {
+          "name": "Обробка помилок — перевірити помилковий запит",
+          "isComplete": false,
+          "dueDate": "2026-11-20",
+          "priority": 4
+        },
+        {
+          "name": "Обробка помилок — додати json-приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-21",
+          "priority": 5
+        },
+        {
+          "name": "Обробка помилок — переглянути відповідь",
+          "isComplete": false,
+          "dueDate": "2026-11-22",
+          "priority": 1
+        },
+        {
+          "name": "Обробка помилок — додати коментарі",
+          "isComplete": false,
+          "dueDate": "2026-11-23",
+          "priority": 2
+        },
+        {
+          "name": "Обробка помилок — перевірити формат дати",
+          "isComplete": false,
+          "dueDate": "2026-11-24",
+          "priority": 3
+        },
+        {
+          "name": "Обробка помилок — підготувати скриншот",
+          "isComplete": false,
+          "dueDate": "2026-11-25",
+          "priority": 4
+        },
+        {
+          "name": "Обробка помилок — перевірити readme",
+          "isComplete": false,
+          "dueDate": "2026-11-26",
+          "priority": 5
+        },
+        {
+          "name": "Тестування API — прочитати документацію",
+          "isComplete": false,
+          "dueDate": "2026-11-27",
+          "priority": 1
+        },
+        {
+          "name": "Тестування API — створити приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-28",
+          "priority": 2
+        },
+        {
+          "name": "Тестування API — перевірити коректний запит",
+          "isComplete": false,
+          "dueDate": "2026-11-01",
+          "priority": 3
+        },
+        {
+          "name": "Тестування API — перевірити помилковий запит",
+          "isComplete": false,
+          "dueDate": "2026-11-02",
+          "priority": 4
+        },
+        {
+          "name": "Тестування API — додати json-приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-03",
+          "priority": 5
+        },
+        {
+          "name": "Тестування API — переглянути відповідь",
+          "isComplete": false,
+          "dueDate": "2026-11-04",
+          "priority": 1
+        },
+        {
+          "name": "Тестування API — додати коментарі",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 2
+        },
+        {
+          "name": "Тестування API — перевірити формат дати",
+          "isComplete": false,
+          "dueDate": "2026-11-06",
+          "priority": 3
+        },
+        {
+          "name": "Тестування API — підготувати скриншот",
+          "isComplete": false,
+          "dueDate": "2026-11-07",
+          "priority": 4
+        },
+        {
+          "name": "Тестування API — перевірити readme",
+          "isComplete": false,
+          "dueDate": "2026-11-08",
+          "priority": 5
+        }
+      ],
+      "status": 201,
+      "response": [
+        {
+          "id": 5,
+          "name": "Основи HTTP — прочитати документацію",
+          "isComplete": false,
+          "dueDate": "2026-11-01",
+          "priority": 1
+        },
+        {
+          "id": 6,
+          "name": "Основи HTTP — створити приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-02",
+          "priority": 2
+        },
+        {
+          "id": 7,
+          "name": "Основи HTTP — перевірити коректний запит",
+          "isComplete": false,
+          "dueDate": "2026-11-03",
+          "priority": 3
+        },
+        {
+          "id": 8,
+          "name": "Основи HTTP — перевірити помилковий запит",
+          "isComplete": false,
+          "dueDate": "2026-11-04",
+          "priority": 4
+        },
+        {
+          "id": 9,
+          "name": "Основи HTTP — додати json-приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 5
+        },
+        {
+          "id": 10,
+          "name": "Основи HTTP — переглянути відповідь",
+          "isComplete": false,
+          "dueDate": "2026-11-06",
+          "priority": 1
+        },
+        {
+          "id": 11,
+          "name": "Основи HTTP — додати коментарі",
+          "isComplete": false,
+          "dueDate": "2026-11-07",
+          "priority": 2
+        },
+        {
+          "id": 12,
+          "name": "Основи HTTP — перевірити формат дати",
+          "isComplete": false,
+          "dueDate": "2026-11-08",
+          "priority": 3
+        },
+        {
+          "id": 13,
+          "name": "Основи HTTP — підготувати скриншот",
+          "isComplete": false,
+          "dueDate": "2026-11-09",
+          "priority": 4
+        },
+        {
+          "id": 14,
+          "name": "Основи HTTP — перевірити readme",
+          "isComplete": false,
+          "dueDate": "2026-11-10",
+          "priority": 5
+        },
+        {
+          "id": 15,
+          "name": "Маршрутизація — прочитати документацію",
+          "isComplete": false,
+          "dueDate": "2026-11-11",
+          "priority": 1
+        },
+        {
+          "id": 16,
+          "name": "Маршрутизація — створити приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-12",
+          "priority": 2
+        },
+        {
+          "id": 17,
+          "name": "Маршрутизація — перевірити коректний запит",
+          "isComplete": false,
+          "dueDate": "2026-11-13",
+          "priority": 3
+        },
+        {
+          "id": 18,
+          "name": "Маршрутизація — перевірити помилковий запит",
+          "isComplete": false,
+          "dueDate": "2026-11-14",
+          "priority": 4
+        },
+        {
+          "id": 19,
+          "name": "Маршрутизація — додати json-приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-15",
+          "priority": 5
+        },
+        {
+          "id": 20,
+          "name": "Маршрутизація — переглянути відповідь",
+          "isComplete": false,
+          "dueDate": "2026-11-16",
+          "priority": 1
+        },
+        {
+          "id": 21,
+          "name": "Маршрутизація — додати коментарі",
+          "isComplete": false,
+          "dueDate": "2026-11-17",
+          "priority": 2
+        },
+        {
+          "id": 22,
+          "name": "Маршрутизація — перевірити формат дати",
+          "isComplete": false,
+          "dueDate": "2026-11-18",
+          "priority": 3
+        },
+        {
+          "id": 23,
+          "name": "Маршрутизація — підготувати скриншот",
+          "isComplete": false,
+          "dueDate": "2026-11-19",
+          "priority": 4
+        },
+        {
+          "id": 24,
+          "name": "Маршрутизація — перевірити readme",
+          "isComplete": false,
+          "dueDate": "2026-11-20",
+          "priority": 5
+        },
+        {
+          "id": 25,
+          "name": "Контролери ASP.NET Core — прочитати документацію",
+          "isComplete": false,
+          "dueDate": "2026-11-21",
+          "priority": 1
+        },
+        {
+          "id": 26,
+          "name": "Контролери ASP.NET Core — створити приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-22",
+          "priority": 2
+        },
+        {
+          "id": 27,
+          "name": "Контролери ASP.NET Core — перевірити коректний запит",
+          "isComplete": false,
+          "dueDate": "2026-11-23",
+          "priority": 3
+        },
+        {
+          "id": 28,
+          "name": "Контролери ASP.NET Core — перевірити помилковий запит",
+          "isComplete": false,
+          "dueDate": "2026-11-24",
+          "priority": 4
+        },
+        {
+          "id": 29,
+          "name": "Контролери ASP.NET Core — додати json-приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-25",
+          "priority": 5
+        },
+        {
+          "id": 30,
+          "name": "Контролери ASP.NET Core — переглянути відповідь",
+          "isComplete": false,
+          "dueDate": "2026-11-26",
+          "priority": 1
+        },
+        {
+          "id": 31,
+          "name": "Контролери ASP.NET Core — додати коментарі",
+          "isComplete": false,
+          "dueDate": "2026-11-27",
+          "priority": 2
+        },
+        {
+          "id": 32,
+          "name": "Контролери ASP.NET Core — перевірити формат дати",
+          "isComplete": false,
+          "dueDate": "2026-11-28",
+          "priority": 3
+        },
+        {
+          "id": 33,
+          "name": "Контролери ASP.NET Core — підготувати скриншот",
+          "isComplete": false,
+          "dueDate": "2026-11-01",
+          "priority": 4
+        },
+        {
+          "id": 34,
+          "name": "Контролери ASP.NET Core — перевірити readme",
+          "isComplete": false,
+          "dueDate": "2026-11-02",
+          "priority": 5
+        },
+        {
+          "id": 35,
+          "name": "Моделі даних — прочитати документацію",
+          "isComplete": false,
+          "dueDate": "2026-11-03",
+          "priority": 1
+        },
+        {
+          "id": 36,
+          "name": "Моделі даних — створити приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-04",
+          "priority": 2
+        },
+        {
+          "id": 37,
+          "name": "Моделі даних — перевірити коректний запит",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 3
+        },
+        {
+          "id": 38,
+          "name": "Моделі даних — перевірити помилковий запит",
+          "isComplete": false,
+          "dueDate": "2026-11-06",
+          "priority": 4
+        },
+        {
+          "id": 39,
+          "name": "Моделі даних — додати json-приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-07",
+          "priority": 5
+        },
+        {
+          "id": 40,
+          "name": "Моделі даних — переглянути відповідь",
+          "isComplete": false,
+          "dueDate": "2026-11-08",
+          "priority": 1
+        },
+        {
+          "id": 41,
+          "name": "Моделі даних — додати коментарі",
+          "isComplete": false,
+          "dueDate": "2026-11-09",
+          "priority": 2
+        },
+        {
+          "id": 42,
+          "name": "Моделі даних — перевірити формат дати",
+          "isComplete": false,
+          "dueDate": "2026-11-10",
+          "priority": 3
+        },
+        {
+          "id": 43,
+          "name": "Моделі даних — підготувати скриншот",
+          "isComplete": false,
+          "dueDate": "2026-11-11",
+          "priority": 4
+        },
+        {
+          "id": 44,
+          "name": "Моделі даних — перевірити readme",
+          "isComplete": false,
+          "dueDate": "2026-11-12",
+          "priority": 5
+        },
+        {
+          "id": 45,
+          "name": "Entity Framework Core — прочитати документацію",
+          "isComplete": false,
+          "dueDate": "2026-11-13",
+          "priority": 1
+        },
+        {
+          "id": 46,
+          "name": "Entity Framework Core — створити приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-14",
+          "priority": 2
+        },
+        {
+          "id": 47,
+          "name": "Entity Framework Core — перевірити коректний запит",
+          "isComplete": false,
+          "dueDate": "2026-11-15",
+          "priority": 3
+        },
+        {
+          "id": 48,
+          "name": "Entity Framework Core — перевірити помилковий запит",
+          "isComplete": false,
+          "dueDate": "2026-11-16",
+          "priority": 4
+        },
+        {
+          "id": 49,
+          "name": "Entity Framework Core — додати json-приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-17",
+          "priority": 5
+        },
+        {
+          "id": 50,
+          "name": "Entity Framework Core — переглянути відповідь",
+          "isComplete": false,
+          "dueDate": "2026-11-18",
+          "priority": 1
+        },
+        {
+          "id": 51,
+          "name": "Entity Framework Core — додати коментарі",
+          "isComplete": false,
+          "dueDate": "2026-11-19",
+          "priority": 2
+        },
+        {
+          "id": 52,
+          "name": "Entity Framework Core — перевірити формат дати",
+          "isComplete": false,
+          "dueDate": "2026-11-20",
+          "priority": 3
+        },
+        {
+          "id": 53,
+          "name": "Entity Framework Core — підготувати скриншот",
+          "isComplete": false,
+          "dueDate": "2026-11-21",
+          "priority": 4
+        },
+        {
+          "id": 54,
+          "name": "Entity Framework Core — перевірити readme",
+          "isComplete": false,
+          "dueDate": "2026-11-22",
+          "priority": 5
+        },
+        {
+          "id": 55,
+          "name": "DTO і захист даних — прочитати документацію",
+          "isComplete": false,
+          "dueDate": "2026-11-23",
+          "priority": 1
+        },
+        {
+          "id": 56,
+          "name": "DTO і захист даних — створити приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-24",
+          "priority": 2
+        },
+        {
+          "id": 57,
+          "name": "DTO і захист даних — перевірити коректний запит",
+          "isComplete": false,
+          "dueDate": "2026-11-25",
+          "priority": 3
+        },
+        {
+          "id": 58,
+          "name": "DTO і захист даних — перевірити помилковий запит",
+          "isComplete": false,
+          "dueDate": "2026-11-26",
+          "priority": 4
+        },
+        {
+          "id": 59,
+          "name": "DTO і захист даних — додати json-приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-27",
+          "priority": 5
+        },
+        {
+          "id": 60,
+          "name": "DTO і захист даних — переглянути відповідь",
+          "isComplete": false,
+          "dueDate": "2026-11-28",
+          "priority": 1
+        },
+        {
+          "id": 61,
+          "name": "DTO і захист даних — додати коментарі",
+          "isComplete": false,
+          "dueDate": "2026-11-01",
+          "priority": 2
+        },
+        {
+          "id": 62,
+          "name": "DTO і захист даних — перевірити формат дати",
+          "isComplete": false,
+          "dueDate": "2026-11-02",
+          "priority": 3
+        },
+        {
+          "id": 63,
+          "name": "DTO і захист даних — підготувати скриншот",
+          "isComplete": false,
+          "dueDate": "2026-11-03",
+          "priority": 4
+        },
+        {
+          "id": 64,
+          "name": "DTO і захист даних — перевірити readme",
+          "isComplete": false,
+          "dueDate": "2026-11-04",
+          "priority": 5
+        },
+        {
+          "id": 65,
+          "name": "Валідація конфігурації — прочитати документацію",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 1
+        },
+        {
+          "id": 66,
+          "name": "Валідація конфігурації — створити приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-06",
+          "priority": 2
+        },
+        {
+          "id": 67,
+          "name": "Валідація конфігурації — перевірити коректний запит",
+          "isComplete": false,
+          "dueDate": "2026-11-07",
+          "priority": 3
+        },
+        {
+          "id": 68,
+          "name": "Валідація конфігурації — перевірити помилковий запит",
+          "isComplete": false,
+          "dueDate": "2026-11-08",
+          "priority": 4
+        },
+        {
+          "id": 69,
+          "name": "Валідація конфігурації — додати json-приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-09",
+          "priority": 5
+        },
+        {
+          "id": 70,
+          "name": "Валідація конфігурації — переглянути відповідь",
+          "isComplete": false,
+          "dueDate": "2026-11-10",
+          "priority": 1
+        },
+        {
+          "id": 71,
+          "name": "Валідація конфігурації — додати коментарі",
+          "isComplete": false,
+          "dueDate": "2026-11-11",
+          "priority": 2
+        },
+        {
+          "id": 72,
+          "name": "Валідація конфігурації — перевірити формат дати",
+          "isComplete": false,
+          "dueDate": "2026-11-12",
+          "priority": 3
+        },
+        {
+          "id": 73,
+          "name": "Валідація конфігурації — підготувати скриншот",
+          "isComplete": false,
+          "dueDate": "2026-11-13",
+          "priority": 4
+        },
+        {
+          "id": 74,
+          "name": "Валідація конфігурації — перевірити readme",
+          "isComplete": false,
+          "dueDate": "2026-11-14",
+          "priority": 5
+        },
+        {
+          "id": 75,
+          "name": "Swagger та OpenAPI — прочитати документацію",
+          "isComplete": false,
+          "dueDate": "2026-11-15",
+          "priority": 1
+        },
+        {
+          "id": 76,
+          "name": "Swagger та OpenAPI — створити приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-16",
+          "priority": 2
+        },
+        {
+          "id": 77,
+          "name": "Swagger та OpenAPI — перевірити коректний запит",
+          "isComplete": false,
+          "dueDate": "2026-11-17",
+          "priority": 3
+        },
+        {
+          "id": 78,
+          "name": "Swagger та OpenAPI — перевірити помилковий запит",
+          "isComplete": false,
+          "dueDate": "2026-11-18",
+          "priority": 4
+        },
+        {
+          "id": 79,
+          "name": "Swagger та OpenAPI — додати json-приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-19",
+          "priority": 5
+        },
+        {
+          "id": 80,
+          "name": "Swagger та OpenAPI — переглянути відповідь",
+          "isComplete": false,
+          "dueDate": "2026-11-20",
+          "priority": 1
+        },
+        {
+          "id": 81,
+          "name": "Swagger та OpenAPI — додати коментарі",
+          "isComplete": false,
+          "dueDate": "2026-11-21",
+          "priority": 2
+        },
+        {
+          "id": 82,
+          "name": "Swagger та OpenAPI — перевірити формат дати",
+          "isComplete": false,
+          "dueDate": "2026-11-22",
+          "priority": 3
+        },
+        {
+          "id": 83,
+          "name": "Swagger та OpenAPI — підготувати скриншот",
+          "isComplete": false,
+          "dueDate": "2026-11-23",
+          "priority": 4
+        },
+        {
+          "id": 84,
+          "name": "Swagger та OpenAPI — перевірити readme",
+          "isComplete": false,
+          "dueDate": "2026-11-24",
+          "priority": 5
+        },
+        {
+          "id": 85,
+          "name": "Пошук за кількома Id — прочитати документацію",
+          "isComplete": false,
+          "dueDate": "2026-11-25",
+          "priority": 1
+        },
+        {
+          "id": 86,
+          "name": "Пошук за кількома Id — створити приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-26",
+          "priority": 2
+        },
+        {
+          "id": 87,
+          "name": "Пошук за кількома Id — перевірити коректний запит",
+          "isComplete": false,
+          "dueDate": "2026-11-27",
+          "priority": 3
+        },
+        {
+          "id": 88,
+          "name": "Пошук за кількома Id — перевірити помилковий запит",
+          "isComplete": false,
+          "dueDate": "2026-11-28",
+          "priority": 4
+        },
+        {
+          "id": 89,
+          "name": "Пошук за кількома Id — додати json-приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-01",
+          "priority": 5
+        },
+        {
+          "id": 90,
+          "name": "Пошук за кількома Id — переглянути відповідь",
+          "isComplete": false,
+          "dueDate": "2026-11-02",
+          "priority": 1
+        },
+        {
+          "id": 91,
+          "name": "Пошук за кількома Id — додати коментарі",
+          "isComplete": false,
+          "dueDate": "2026-11-03",
+          "priority": 2
+        },
+        {
+          "id": 92,
+          "name": "Пошук за кількома Id — перевірити формат дати",
+          "isComplete": false,
+          "dueDate": "2026-11-04",
+          "priority": 3
+        },
+        {
+          "id": 93,
+          "name": "Пошук за кількома Id — підготувати скриншот",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 4
+        },
+        {
+          "id": 94,
+          "name": "Пошук за кількома Id — перевірити readme",
+          "isComplete": false,
+          "dueDate": "2026-11-06",
+          "priority": 5
+        },
+        {
+          "id": 95,
+          "name": "Масове створення — прочитати документацію",
+          "isComplete": false,
+          "dueDate": "2026-11-07",
+          "priority": 1
+        },
+        {
+          "id": 96,
+          "name": "Масове створення — створити приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-08",
+          "priority": 2
+        },
+        {
+          "id": 97,
+          "name": "Масове створення — перевірити коректний запит",
+          "isComplete": false,
+          "dueDate": "2026-11-09",
+          "priority": 3
+        },
+        {
+          "id": 98,
+          "name": "Масове створення — перевірити помилковий запит",
+          "isComplete": false,
+          "dueDate": "2026-11-10",
+          "priority": 4
+        },
+        {
+          "id": 99,
+          "name": "Масове створення — додати json-приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-11",
+          "priority": 5
+        },
+        {
+          "id": 100,
+          "name": "Масове створення — переглянути відповідь",
+          "isComplete": false,
+          "dueDate": "2026-11-12",
+          "priority": 1
+        },
+        {
+          "id": 101,
+          "name": "Масове створення — додати коментарі",
+          "isComplete": false,
+          "dueDate": "2026-11-13",
+          "priority": 2
+        },
+        {
+          "id": 102,
+          "name": "Масове створення — перевірити формат дати",
+          "isComplete": false,
+          "dueDate": "2026-11-14",
+          "priority": 3
+        },
+        {
+          "id": 103,
+          "name": "Масове створення — підготувати скриншот",
+          "isComplete": false,
+          "dueDate": "2026-11-15",
+          "priority": 4
+        },
+        {
+          "id": 104,
+          "name": "Масове створення — перевірити readme",
+          "isComplete": false,
+          "dueDate": "2026-11-16",
+          "priority": 5
+        },
+        {
+          "id": 105,
+          "name": "Обробка помилок — прочитати документацію",
+          "isComplete": false,
+          "dueDate": "2026-11-17",
+          "priority": 1
+        },
+        {
+          "id": 106,
+          "name": "Обробка помилок — створити приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-18",
+          "priority": 2
+        },
+        {
+          "id": 107,
+          "name": "Обробка помилок — перевірити коректний запит",
+          "isComplete": false,
+          "dueDate": "2026-11-19",
+          "priority": 3
+        },
+        {
+          "id": 108,
+          "name": "Обробка помилок — перевірити помилковий запит",
+          "isComplete": false,
+          "dueDate": "2026-11-20",
+          "priority": 4
+        },
+        {
+          "id": 109,
+          "name": "Обробка помилок — додати json-приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-21",
+          "priority": 5
+        },
+        {
+          "id": 110,
+          "name": "Обробка помилок — переглянути відповідь",
+          "isComplete": false,
+          "dueDate": "2026-11-22",
+          "priority": 1
+        },
+        {
+          "id": 111,
+          "name": "Обробка помилок — додати коментарі",
+          "isComplete": false,
+          "dueDate": "2026-11-23",
+          "priority": 2
+        },
+        {
+          "id": 112,
+          "name": "Обробка помилок — перевірити формат дати",
+          "isComplete": false,
+          "dueDate": "2026-11-24",
+          "priority": 3
+        },
+        {
+          "id": 113,
+          "name": "Обробка помилок — підготувати скриншот",
+          "isComplete": false,
+          "dueDate": "2026-11-25",
+          "priority": 4
+        },
+        {
+          "id": 114,
+          "name": "Обробка помилок — перевірити readme",
+          "isComplete": false,
+          "dueDate": "2026-11-26",
+          "priority": 5
+        },
+        {
+          "id": 115,
+          "name": "Тестування API — прочитати документацію",
+          "isComplete": false,
+          "dueDate": "2026-11-27",
+          "priority": 1
+        },
+        {
+          "id": 116,
+          "name": "Тестування API — створити приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-28",
+          "priority": 2
+        },
+        {
+          "id": 117,
+          "name": "Тестування API — перевірити коректний запит",
+          "isComplete": false,
+          "dueDate": "2026-11-01",
+          "priority": 3
+        },
+        {
+          "id": 118,
+          "name": "Тестування API — перевірити помилковий запит",
+          "isComplete": false,
+          "dueDate": "2026-11-02",
+          "priority": 4
+        },
+        {
+          "id": 119,
+          "name": "Тестування API — додати json-приклад",
+          "isComplete": false,
+          "dueDate": "2026-11-03",
+          "priority": 5
+        },
+        {
+          "id": 120,
+          "name": "Тестування API — переглянути відповідь",
+          "isComplete": false,
+          "dueDate": "2026-11-04",
+          "priority": 1
+        },
+        {
+          "id": 121,
+          "name": "Тестування API — додати коментарі",
+          "isComplete": false,
+          "dueDate": "2026-11-05",
+          "priority": 2
+        },
+        {
+          "id": 122,
+          "name": "Тестування API — перевірити формат дати",
+          "isComplete": false,
+          "dueDate": "2026-11-06",
+          "priority": 3
+        },
+        {
+          "id": 123,
+          "name": "Тестування API — підготувати скриншот",
+          "isComplete": false,
+          "dueDate": "2026-11-07",
+          "priority": 4
+        },
+        {
+          "id": 124,
+          "name": "Тестування API — перевірити readme",
+          "isComplete": false,
+          "dueDate": "2026-11-08",
+          "priority": 5
+        }
+      ],
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Location": "http://localhost:5085/api/TodoItems",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/5",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/6",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/7",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/8",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/9",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/10",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/11",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/12",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/13",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/14",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/15",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/16",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/17",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/18",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/19",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/20",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/21",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/22",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/23",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/24",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/25",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/26",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/27",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/28",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/29",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/30",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/31",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/32",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/33",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/34",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/35",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/36",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/37",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/38",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/39",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/40",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/41",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/42",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/43",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/44",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/45",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/46",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/47",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/48",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/49",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/50",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/51",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/52",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/53",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/54",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/55",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/56",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/57",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/58",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/59",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/60",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/61",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/62",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/63",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/64",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/65",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/66",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/67",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/68",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/69",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/70",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/71",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/72",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/73",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/74",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/75",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/76",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/77",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/78",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/79",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/80",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/81",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/82",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/83",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/84",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/85",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/86",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/87",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/88",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/89",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/90",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/91",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/92",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/93",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/94",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/95",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/96",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/97",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/98",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/99",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/100",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/101",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/102",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/103",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/104",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/105",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/106",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/107",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/108",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/109",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/110",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/111",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/112",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/113",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/114",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/115",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/116",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/117",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/118",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/119",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/120",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/121",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/122",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/123",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/124",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/1",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/TodoItems/1",
+      "request": null,
+      "status": 404,
+      "response": {
+        "type": "https://tools.ietf.org/html/rfc9110#section-15.5.5",
+        "title": "Not Found",
+        "status": 404,
+        "traceId": "00-ffcd12b5d241771fb9c9f21c2b94f902-e776af358cd349c2-00"
+      },
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/problem+json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/1",
+      "request": null,
+      "status": 404,
+      "response": {
+        "type": "https://tools.ietf.org/html/rfc9110#section-15.5.5",
+        "title": "Not Found",
+        "status": 404,
+        "traceId": "00-f60c86f52b0a2122ad9637399c60369a-9538d30e53e41157-00"
+      },
+      "headers": {
+        "Connection": "close",
+        "Content-Type": "application/problem+json; charset=utf-8",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel",
+        "Transfer-Encoding": "chunked"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/2",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/3",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/TodoItems/4",
+      "request": null,
+      "status": 204,
+      "response": null,
+      "headers": {
+        "Connection": "close",
+        "Date": "Fri, 30 Oct 2026 23:16:27 GMT",
+        "Server": "Kestrel"
+      }
+    }
+  ]
+}
