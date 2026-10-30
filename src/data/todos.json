@@ -1,0 +1,722 @@
+[
+  {
+    "name": "Основи HTTP — прочитати документацію",
+    "isComplete": false,
+    "dueDate": "2026-11-01",
+    "priority": 1
+  },
+  {
+    "name": "Основи HTTP — створити приклад",
+    "isComplete": false,
+    "dueDate": "2026-11-02",
+    "priority": 2
+  },
+  {
+    "name": "Основи HTTP — перевірити коректний запит",
+    "isComplete": false,
+    "dueDate": "2026-11-03",
+    "priority": 3
+  },
+  {
+    "name": "Основи HTTP — перевірити помилковий запит",
+    "isComplete": false,
+    "dueDate": "2026-11-04",
+    "priority": 4
+  },
+  {
+    "name": "Основи HTTP — додати json-приклад",
+    "isComplete": false,
+    "dueDate": "2026-11-05",
+    "priority": 5
+  },
+  {
+    "name": "Основи HTTP — переглянути відповідь",
+    "isComplete": false,
+    "dueDate": "2026-11-06",
+    "priority": 1
+  },
+  {
+    "name": "Основи HTTP — додати коментарі",
+    "isComplete": false,
+    "dueDate": "2026-11-07",
+    "priority": 2
+  },
+  {
+    "name": "Основи HTTP — перевірити формат дати",
+    "isComplete": false,
+    "dueDate": "2026-11-08",
+    "priority": 3
+  },
+  {
+    "name": "Основи HTTP — підготувати скриншот",
+    "isComplete": false,
+    "dueDate": "2026-11-09",
+    "priority": 4
+  },
+  {
+    "name": "Основи HTTP — перевірити readme",
+    "isComplete": false,
+    "dueDate": "2026-11-10",
+    "priority": 5
+  },
+  {
+    "name": "Маршрутизація — прочитати документацію",
+    "isComplete": false,
+    "dueDate": "2026-11-11",
+    "priority": 1
+  },
+  {
+    "name": "Маршрутизація — створити приклад",
+    "isComplete": false,
+    "dueDate": "2026-11-12",
+    "priority": 2
+  },
+  {
+    "name": "Маршрутизація — перевірити коректний запит",
+    "isComplete": false,
+    "dueDate": "2026-11-13",
+    "priority": 3
+  },
+  {
+    "name": "Маршрутизація — перевірити помилковий запит",
+    "isComplete": false,
+    "dueDate": "2026-11-14",
+    "priority": 4
+  },
+  {
+    "name": "Маршрутизація — додати json-приклад",
+    "isComplete": false,
+    "dueDate": "2026-11-15",
+    "priority": 5
+  },
+  {
+    "name": "Маршрутизація — переглянути відповідь",
+    "isComplete": false,
+    "dueDate": "2026-11-16",
+    "priority": 1
+  },
+  {
+    "name": "Маршрутизація — додати коментарі",
+    "isComplete": false,
+    "dueDate": "2026-11-17",
+    "priority": 2
+  },
+  {
+    "name": "Маршрутизація — перевірити формат дати",
+    "isComplete": false,
+    "dueDate": "2026-11-18",
+    "priority": 3
+  },
+  {
+    "name": "Маршрутизація — підготувати скриншот",
+    "isComplete": false,
+    "dueDate": "2026-11-19",
+    "priority": 4
+  },
+  {
+    "name": "Маршрутизація — перевірити readme",
+    "isComplete": false,
+    "dueDate": "2026-11-20",
+    "priority": 5
+  },
+  {
+    "name": "Контролери ASP.NET Core — прочитати документацію",
+    "isComplete": false,
+    "dueDate": "2026-11-21",
+    "priority": 1
+  },
+  {
+    "name": "Контролери ASP.NET Core — створити приклад",
+    "isComplete": false,
+    "dueDate": "2026-11-22",
+    "priority": 2
+  },
+  {
+    "name": "Контролери ASP.NET Core — перевірити коректний запит",
+    "isComplete": false,
+    "dueDate": "2026-11-23",
+    "priority": 3
+  },
+  {
+    "name": "Контролери ASP.NET Core — перевірити помилковий запит",
+    "isComplete": false,
+    "dueDate": "2026-11-24",
+    "priority": 4
+  },
+  {
+    "name": "Контролери ASP.NET Core — додати json-приклад",
+    "isComplete": false,
+    "dueDate": "2026-11-25",
+    "priority": 5
+  },
+  {
+    "name": "Контролери ASP.NET Core — переглянути відповідь",
+    "isComplete": false,
+    "dueDate": "2026-11-26",
+    "priority": 1
+  },
+  {
+    "name": "Контролери ASP.NET Core — додати коментарі",
+    "isComplete": false,
+    "dueDate": "2026-11-27",
+    "priority": 2
+  },
+  {
+    "name": "Контролери ASP.NET Core — перевірити формат дати",
+    "isComplete": false,
+    "dueDate": "2026-11-28",
+    "priority": 3
+  },
+  {
+    "name": "Контролери ASP.NET Core — підготувати скриншот",
+    "isComplete": false,
+    "dueDate": "2026-11-01",
+    "priority": 4
+  },
+  {
+    "name": "Контролери ASP.NET Core — перевірити readme",
+    "isComplete": false,
+    "dueDate": "2026-11-02",
+    "priority": 5
+  },
+  {
+    "name": "Моделі даних — прочитати документацію",
+    "isComplete": false,
+    "dueDate": "2026-11-03",
+    "priority": 1
+  },
+  {
+    "name": "Моделі даних — створити приклад",
+    "isComplete": false,
+    "dueDate": "2026-11-04",
+    "priority": 2
+  },
+  {
+    "name": "Моделі даних — перевірити коректний запит",
+    "isComplete": false,
+    "dueDate": "2026-11-05",
+    "priority": 3
+  },
+  {
+    "name": "Моделі даних — перевірити помилковий запит",
+    "isComplete": false,
+    "dueDate": "2026-11-06",
+    "priority": 4
+  },
+  {
+    "name": "Моделі даних — додати json-приклад",
+    "isComplete": false,
+    "dueDate": "2026-11-07",
+    "priority": 5
+  },
+  {
+    "name": "Моделі даних — переглянути відповідь",
+    "isComplete": false,
+    "dueDate": "2026-11-08",
+    "priority": 1
+  },
+  {
+    "name": "Моделі даних — додати коментарі",
+    "isComplete": false,
+    "dueDate": "2026-11-09",
+    "priority": 2
+  },
+  {
+    "name": "Моделі даних — перевірити формат дати",
+    "isComplete": false,
+    "dueDate": "2026-11-10",
+    "priority": 3
+  },
+  {
+    "name": "Моделі даних — підготувати скриншот",
+    "isComplete": false,
+    "dueDate": "2026-11-11",
+    "priority": 4
+  },
+  {
+    "name": "Моделі даних — перевірити readme",
+    "isComplete": false,
+    "dueDate": "2026-11-12",
+    "priority": 5
+  },
+  {
+    "name": "Entity Framework Core — прочитати документацію",
+    "isComplete": false,
+    "dueDate": "2026-11-13",
+    "priority": 1
+  },
+  {
+    "name": "Entity Framework Core — створити приклад",
+    "isComplete": false,
+    "dueDate": "2026-11-14",
+    "priority": 2
+  },
+  {
+    "name": "Entity Framework Core — перевірити коректний запит",
+    "isComplete": false,
+    "dueDate": "2026-11-15",
+    "priority": 3
+  },
+  {
+    "name": "Entity Framework Core — перевірити помилковий запит",
+    "isComplete": false,
+    "dueDate": "2026-11-16",
+    "priority": 4
+  },
+  {
+    "name": "Entity Framework Core — додати json-приклад",
+    "isComplete": false,
+    "dueDate": "2026-11-17",
+    "priority": 5
+  },
+  {
+    "name": "Entity Framework Core — переглянути відповідь",
+    "isComplete": false,
+    "dueDate": "2026-11-18",
+    "priority": 1
+  },
+  {
+    "name": "Entity Framework Core — додати коментарі",
+    "isComplete": false,
+    "dueDate": "2026-11-19",
+    "priority": 2
+  },
+  {
+    "name": "Entity Framework Core — перевірити формат дати",
+    "isComplete": false,
+    "dueDate": "2026-11-20",
+    "priority": 3
+  },
+  {
+    "name": "Entity Framework Core — підготувати скриншот",
+    "isComplete": false,
+    "dueDate": "2026-11-21",
+    "priority": 4
+  },
+  {
+    "name": "Entity Framework Core — перевірити readme",
+    "isComplete": false,
+    "dueDate": "2026-11-22",
+    "priority": 5
+  },
+  {
+    "name": "DTO і захист даних — прочитати документацію",
+    "isComplete": false,
+    "dueDate": "2026-11-23",
+    "priority": 1
+  },
+  {
+    "name": "DTO і захист даних — створити приклад",
+    "isComplete": false,
+    "dueDate": "2026-11-24",
+    "priority": 2
+  },
+  {
+    "name": "DTO і захист даних — перевірити коректний запит",
+    "isComplete": false,
+    "dueDate": "2026-11-25",
+    "priority": 3
+  },
+  {
+    "name": "DTO і захист даних — перевірити помилковий запит",
+    "isComplete": false,
+    "dueDate": "2026-11-26",
+    "priority": 4
+  },
+  {
+    "name": "DTO і захист даних — додати json-приклад",
+    "isComplete": false,
+    "dueDate": "2026-11-27",
+    "priority": 5
+  },
+  {
+    "name": "DTO і захист даних — переглянути відповідь",
+    "isComplete": false,
+    "dueDate": "2026-11-28",
+    "priority": 1
+  },
+  {
+    "name": "DTO і захист даних — додати коментарі",
+    "isComplete": false,
+    "dueDate": "2026-11-01",
+    "priority": 2
+  },
+  {
+    "name": "DTO і захист даних — перевірити формат дати",
+    "isComplete": false,
+    "dueDate": "2026-11-02",
+    "priority": 3
+  },
+  {
+    "name": "DTO і захист даних — підготувати скриншот",
+    "isComplete": false,
+    "dueDate": "2026-11-03",
+    "priority": 4
+  },
+  {
+    "name": "DTO і захист даних — перевірити readme",
+    "isComplete": false,
+    "dueDate": "2026-11-04",
+    "priority": 5
+  },
+  {
+    "name": "Валідація конфігурації — прочитати документацію",
+    "isComplete": false,
+    "dueDate": "2026-11-05",
+    "priority": 1
+  },
+  {
+    "name": "Валідація конфігурації — створити приклад",
+    "isComplete": false,
+    "dueDate": "2026-11-06",
+    "priority": 2
+  },
+  {
+    "name": "Валідація конфігурації — перевірити коректний запит",
+    "isComplete": false,
+    "dueDate": "2026-11-07",
+    "priority": 3
+  },
+  {
+    "name": "Валідація конфігурації — перевірити помилковий запит",
+    "isComplete": false,
+    "dueDate": "2026-11-08",
+    "priority": 4
+  },
+  {
+    "name": "Валідація конфігурації — додати json-приклад",
+    "isComplete": false,
+    "dueDate": "2026-11-09",
+    "priority": 5
+  },
+  {
+    "name": "Валідація конфігурації — переглянути відповідь",
+    "isComplete": false,
+    "dueDate": "2026-11-10",
+    "priority": 1
+  },
+  {
+    "name": "Валідація конфігурації — додати коментарі",
+    "isComplete": false,
+    "dueDate": "2026-11-11",
+    "priority": 2
+  },
+  {
+    "name": "Валідація конфігурації — перевірити формат дати",
+    "isComplete": false,
+    "dueDate": "2026-11-12",
+    "priority": 3
+  },
+  {
+    "name": "Валідація конфігурації — підготувати скриншот",
+    "isComplete": false,
+    "dueDate": "2026-11-13",
+    "priority": 4
+  },
+  {
+    "name": "Валідація конфігурації — перевірити readme",
+    "isComplete": false,
+    "dueDate": "2026-11-14",
+    "priority": 5
+  },
+  {
+    "name": "Swagger та OpenAPI — прочитати документацію",
+    "isComplete": false,
+    "dueDate": "2026-11-15",
+    "priority": 1
+  },
+  {
+    "name": "Swagger та OpenAPI — створити приклад",
+    "isComplete": false,
+    "dueDate": "2026-11-16",
+    "priority": 2
+  },
+  {
+    "name": "Swagger та OpenAPI — перевірити коректний запит",
+    "isComplete": false,
+    "dueDate": "2026-11-17",
+    "priority": 3
+  },
+  {
+    "name": "Swagger та OpenAPI — перевірити помилковий запит",
+    "isComplete": false,
+    "dueDate": "2026-11-18",
+    "priority": 4
+  },
+  {
+    "name": "Swagger та OpenAPI — додати json-приклад",
+    "isComplete": false,
+    "dueDate": "2026-11-19",
+    "priority": 5
+  },
+  {
+    "name": "Swagger та OpenAPI — переглянути відповідь",
+    "isComplete": false,
+    "dueDate": "2026-11-20",
+    "priority": 1
+  },
+  {
+    "name": "Swagger та OpenAPI — додати коментарі",
+    "isComplete": false,
+    "dueDate": "2026-11-21",
+    "priority": 2
+  },
+  {
+    "name": "Swagger та OpenAPI — перевірити формат дати",
+    "isComplete": false,
+    "dueDate": "2026-11-22",
+    "priority": 3
+  },
+  {
+    "name": "Swagger та OpenAPI — підготувати скриншот",
+    "isComplete": false,
+    "dueDate": "2026-11-23",
+    "priority": 4
+  },
+  {
+    "name": "Swagger та OpenAPI — перевірити readme",
+    "isComplete": false,
+    "dueDate": "2026-11-24",
+    "priority": 5
+  },
+  {
+    "name": "Пошук за кількома Id — прочитати документацію",
+    "isComplete": false,
+    "dueDate": "2026-11-25",
+    "priority": 1
+  },
+  {
+    "name": "Пошук за кількома Id — створити приклад",
+    "isComplete": false,
+    "dueDate": "2026-11-26",
+    "priority": 2
+  },
+  {
+    "name": "Пошук за кількома Id — перевірити коректний запит",
+    "isComplete": false,
+    "dueDate": "2026-11-27",
+    "priority": 3
+  },
+  {
+    "name": "Пошук за кількома Id — перевірити помилковий запит",
+    "isComplete": false,
+    "dueDate": "2026-11-28",
+    "priority": 4
+  },
+  {
+    "name": "Пошук за кількома Id — додати json-приклад",
+    "isComplete": false,
+    "dueDate": "2026-11-01",
+    "priority": 5
+  },
+  {
+    "name": "Пошук за кількома Id — переглянути відповідь",
+    "isComplete": false,
+    "dueDate": "2026-11-02",
+    "priority": 1
+  },
+  {
+    "name": "Пошук за кількома Id — додати коментарі",
+    "isComplete": false,
+    "dueDate": "2026-11-03",
+    "priority": 2
+  },
+  {
+    "name": "Пошук за кількома Id — перевірити формат дати",
+    "isComplete": false,
+    "dueDate": "2026-11-04",
+    "priority": 3
+  },
+  {
+    "name": "Пошук за кількома Id — підготувати скриншот",
+    "isComplete": false,
+    "dueDate": "2026-11-05",
+    "priority": 4
+  },
+  {
+    "name": "Пошук за кількома Id — перевірити readme",
+    "isComplete": false,
+    "dueDate": "2026-11-06",
+    "priority": 5
+  },
+  {
+    "name": "Масове створення — прочитати документацію",
+    "isComplete": false,
+    "dueDate": "2026-11-07",
+    "priority": 1
+  },
+  {
+    "name": "Масове створення — створити приклад",
+    "isComplete": false,
+    "dueDate": "2026-11-08",
+    "priority": 2
+  },
+  {
+    "name": "Масове створення — перевірити коректний запит",
+    "isComplete": false,
+    "dueDate": "2026-11-09",
+    "priority": 3
+  },
+  {
+    "name": "Масове створення — перевірити помилковий запит",
+    "isComplete": false,
+    "dueDate": "2026-11-10",
+    "priority": 4
+  },
+  {
+    "name": "Масове створення — додати json-приклад",
+    "isComplete": false,
+    "dueDate": "2026-11-11",
+    "priority": 5
+  },
+  {
+    "name": "Масове створення — переглянути відповідь",
+    "isComplete": false,
+    "dueDate": "2026-11-12",
+    "priority": 1
+  },
+  {
+    "name": "Масове створення — додати коментарі",
+    "isComplete": false,
+    "dueDate": "2026-11-13",
+    "priority": 2
+  },
+  {
+    "name": "Масове створення — перевірити формат дати",
+    "isComplete": false,
+    "dueDate": "2026-11-14",
+    "priority": 3
+  },
+  {
+    "name": "Масове створення — підготувати скриншот",
+    "isComplete": false,
+    "dueDate": "2026-11-15",
+    "priority": 4
+  },
+  {
+    "name": "Масове створення — перевірити readme",
+    "isComplete": false,
+    "dueDate": "2026-11-16",
+    "priority": 5
+  },
+  {
+    "name": "Обробка помилок — прочитати документацію",
+    "isComplete": false,
+    "dueDate": "2026-11-17",
+    "priority": 1
+  },
+  {
+    "name": "Обробка помилок — створити приклад",
+    "isComplete": false,
+    "dueDate": "2026-11-18",
+    "priority": 2
+  },
+  {
+    "name": "Обробка помилок — перевірити коректний запит",
+    "isComplete": false,
+    "dueDate": "2026-11-19",
+    "priority": 3
+  },
+  {
+    "name": "Обробка помилок — перевірити помилковий запит",
+    "isComplete": false,
+    "dueDate": "2026-11-20",
+    "priority": 4
+  },
+  {
+    "name": "Обробка помилок — додати json-приклад",
+    "isComplete": false,
+    "dueDate": "2026-11-21",
+    "priority": 5
+  },
+  {
+    "name": "Обробка помилок — переглянути відповідь",
+    "isComplete": false,
+    "dueDate": "2026-11-22",
+    "priority": 1
+  },
+  {
+    "name": "Обробка помилок — додати коментарі",
+    "isComplete": false,
+    "dueDate": "2026-11-23",
+    "priority": 2
+  },
+  {
+    "name": "Обробка помилок — перевірити формат дати",
+    "isComplete": false,
+    "dueDate": "2026-11-24",
+    "priority": 3
+  },
+  {
+    "name": "Обробка помилок — підготувати скриншот",
+    "isComplete": false,
+    "dueDate": "2026-11-25",
+    "priority": 4
+  },
+  {
+    "name": "Обробка помилок — перевірити readme",
+    "isComplete": false,
+    "dueDate": "2026-11-26",
+    "priority": 5
+  },
+  {
+    "name": "Тестування API — прочитати документацію",
+    "isComplete": false,
+    "dueDate": "2026-11-27",
+    "priority": 1
+  },
+  {
+    "name": "Тестування API — створити приклад",
+    "isComplete": false,
+    "dueDate": "2026-11-28",
+    "priority": 2
+  },
+  {
+    "name": "Тестування API — перевірити коректний запит",
+    "isComplete": false,
+    "dueDate": "2026-11-01",
+    "priority": 3
+  },
+  {
+    "name": "Тестування API — перевірити помилковий запит",
+    "isComplete": false,
+    "dueDate": "2026-11-02",
+    "priority": 4
+  },
+  {
+    "name": "Тестування API — додати json-приклад",
+    "isComplete": false,
+    "dueDate": "2026-11-03",
+    "priority": 5
+  },
+  {
+    "name": "Тестування API — переглянути відповідь",
+    "isComplete": false,
+    "dueDate": "2026-11-04",
+    "priority": 1
+  },
+  {
+    "name": "Тестування API — додати коментарі",
+    "isComplete": false,
+    "dueDate": "2026-11-05",
+    "priority": 2
+  },
+  {
+    "name": "Тестування API — перевірити формат дати",
+    "isComplete": false,
+    "dueDate": "2026-11-06",
+    "priority": 3
+  },
+  {
+    "name": "Тестування API — підготувати скриншот",
+    "isComplete": false,
+    "dueDate": "2026-11-07",
+    "priority": 4
+  },
+  {
+    "name": "Тестування API — перевірити readme",
+    "isComplete": false,
+    "dueDate": "2026-11-08",
+    "priority": 5
+  }
+]

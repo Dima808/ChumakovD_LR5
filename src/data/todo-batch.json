@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Підготувати звіт з ASP.NET Core",
+    "isComplete": false,
+    "dueDate": "2026-11-05",
+    "priority": 3
+  },
+  {
+    "name": "Перевірити пошук за Id",
+    "isComplete": false,
+    "dueDate": "2026-11-06",
+    "priority": 2
+  },
+  {
+    "name": "Здати лабораторну роботу 5",
+    "isComplete": false,
+    "dueDate": "2026-11-07",
+    "priority": 5
+  }
+]
